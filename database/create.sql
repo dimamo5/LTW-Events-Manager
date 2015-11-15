@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS Photo;
 CREATE TABLE Event(
 	idEvent INTEGER PRIMARY KEY,
 	creationDate DATE NOT NULL,
+	public BOOLEAN,
 	type TEXT,
 	description TEXT,
 	idPhoto INTEGER REFERENCES Photo(idPhoto)
