@@ -1,3 +1,9 @@
+.bail ON
+.mode columns
+.headers on
+.nullvalue NULL
+PRAGMA foreign_keys = ON;
+
 DROP TABLE IF EXISTS Event;
 DROP TABLE IF EXISTS UserEvent;
 DROP TABLE IF EXISTS User;
@@ -16,7 +22,8 @@ CREATE TABLE Event(
 CREATE TABLE UserEvent(
 	idEvent INTEGER REFERENCES Event(idEvent),
 	idUser INTEGER REFERENCES User(idUser),
-	PRIMARY KEY (idEvent,idUser0)
+	confirm BOOLEAN DEFAULT 0,
+	PRIMARY KEY (idEvent,idUser)
 );
 
 CREATE TABLE User(
@@ -31,7 +38,7 @@ CREATE TABLE User(
 
 CREATE TABLE Comment (
 	idComment INTEGER PRIMARY KEY,
-	idEvent INTEGER REFERENCES Event(idEvent),
+	idPost INTEGER REFERENCES Post(idPost),
 	idUser INTEGER REFERENCES User(idUser),
 	commentText TEXT NOT NULL,
 	creationDate DATE NOT NULL
@@ -42,4 +49,17 @@ CREATE TABLE Photo(
 	location TEXT,
 	size INTEGER,
 	uploadDate DATE
-)
+);
+
+CREATE TABLE EventPhoto(
+	idEvent INTEGER REFERENCES Event(idEvent),
+	idPhoto INTEGER REFERENCES Photo(idPhoto),
+	PRIMARY KEY (idEvent,idPhoto)
+);
+
+CREATE TABLE Post(
+	idPost INTEGER PRIMARY KEY,
+	idEvent INTEGER REFERENCES Event(idEvent),
+	idUser INTEGER REFERENCES User(idUser),
+	info TEXT
+);
