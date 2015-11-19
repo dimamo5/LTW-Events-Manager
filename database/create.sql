@@ -46,7 +46,7 @@ CREATE TABLE Comment (
 
 CREATE TABLE Photo(
 	idPhoto INTEGER PRIMARY KEY,
-	location TEXT,
+	path TEXT,
 	size INTEGER,
 	uploadDate DATE
 );
@@ -63,3 +63,6 @@ CREATE TABLE Post(
 	idUser INTEGER REFERENCES User(idUser),
 	info TEXT
 );
+
+INSERT INTO Photo VALUES(1,NULL,NULL,NULL);
+INSERT INTO User VALUES (1,"diogomoura","ce47fa5f3a0a54a65fead7c798669e1ae1b73809d4a1f525eb948afe697b4c00a5c2361afb54cad0e4ffd9c51549eb6d73e4a3e4d594ec80a639365ad8b3e78a","diogomoura13@gmail.com","Diogo","1995-08-05",1);

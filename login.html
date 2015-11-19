@@ -1,0 +1,53 @@
+<?php
+require_once('includes/func.php');
+session_start();
+if (login_check()) {
+    header('Location:index.php');
+}
+/*function login_error(){
+      $alert= 'data-toggle="popover" title="Dismissible popover" data-content="And here\'s some amazing content. It\'s very engaging. Right?"';
+      if(isset($_GET["error"])){
+      echo $alert;
+      }
+} */
+?>
+
+
+
+<!DOCTYPE html>
+<!-- saved from url=(0040)http://getbootstrap.com/examples/signin/ -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Diogo Moura">
+
+    <title>Event Maganger</title>
+
+
+</head>
+
+<body>
+
+<div class="login">
+
+    <form action="process_login.php" method="post" role="form">
+        <h2 >Please sign in</h2>
+        <input name="username" type="text" class="form-control" placeholder="Username" required="" autofocus="">
+        <input name="password" type="password" class="form-control" placeholder="Password" required="">
+
+        <div>
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button type="submit">Sign in</button>
+    </form>
+
+</div>
+
+</body>
+</html>
