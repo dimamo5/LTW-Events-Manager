@@ -1,21 +1,25 @@
 <?php
 function login($username, $password)
 {
-    $db = $db = new PDO('sqlite:news.db');
-    $query = "SELECT * FROM users WHERE loginId='";
+    $db = $db = new PDO('sqlite:event.db');
+    $query = "SELECT * FROM User WHERE loginId='";
     $query .= $username . "';";
+    
+    echo $query;
     
     $stmt = $db->prepare($query);
 	$stmt->execute();  
 	$result = $stmt->fetchAll();
+    var_dump($result);
     
-    $password_db = $result['password'];
-    $user_id = $result['idUser'];
+    $password_db = $result[0]['password'];
+    $user_id = $result[0]['idUser'];
     
     $password = hash('sha512', $password);
     
     $db=NULL;
-    echo("nice manda");
+   
+    
     if ($password_db == $password) {
         $_SESSION['userId'] = $user_id;
         $_SESSION['password'] = $password;
@@ -30,26 +34,6 @@ function login_check()
         $userId = $_SESSION['userId'];
         $password = $_SESSION['password'];
     } else return false;
-    
-    $db = $db = new PDO('sqlite:eventDatabase.db');
-    $query = "SELECT * FROM users WHERE idUser='";
-    $query .= $userID . "';";
-    
-    $stmt = $db->prepare($query);
-	$stmt->execute();  
-	$result = $stmt->fetchAll();
-    
-    $password_db = $result['password'];
-    $user_id = $result['idUser'];
-    
-    $db=NULL;
-    
-    if ($password === $password_db) {
-        echo("checaBem");
-        return true;
-    } else {
-        return false;
-    }
-    
+
 }
 ?>
