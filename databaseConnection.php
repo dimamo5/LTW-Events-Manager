@@ -5,12 +5,14 @@ function login($username, $password)
     $query = "SELECT * FROM User WHERE loginId='";
     $query .= $username . "';";
     
-    echo $query;
+    //echo $query;
     
     $stmt = $db->prepare($query);
 	$stmt->execute();  
 	$result = $stmt->fetchAll();
-    var_dump($result);
+    if(count($result)==0){
+        return false;
+    }
     
     $password_db = $result[0]['password'];
     $user_id = $result[0]['idUser'];
