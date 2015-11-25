@@ -12,11 +12,15 @@ DROP TABLE IF EXISTS Photo;
 
 CREATE TABLE Event(
 	idEvent INTEGER PRIMARY KEY,
+	nameEvent TEXT NOT NULL,
 	creationDate DATE NOT NULL,
+	endDate DATE NOT NULL,
+	local TEXT NOT NULL,
 	public BOOLEAN,
 	type TEXT,
 	description TEXT,
-	idPhoto INTEGER REFERENCES Photo(idPhoto)
+	idPhoto INTEGER REFERENCES Photo(idPhoto),
+	idOwner INTEGER REFERENCES User(idUser)
 );
 
 CREATE TABLE UserEvent(
@@ -47,7 +51,6 @@ CREATE TABLE Comment (
 CREATE TABLE Photo(
 	idPhoto INTEGER PRIMARY KEY,
 	path TEXT,
-	size INTEGER,
 	uploadDate DATE
 );
 
@@ -64,5 +67,18 @@ CREATE TABLE Post(
 	info TEXT
 );
 
-INSERT INTO Photo VALUES(1,NULL,NULL,NULL);
+CREATE TRIGGER OwnerGoesevent AFTER INSERT ON Event FOR EACH ROW BEGIN
+INSERT INTO UserEvent VALUES(NEW.idEvent,NEW.idOwner,1);
+END;
+
+
+INSERT INTO Photo VALUES(1,"user/userDefault.png","2015-11-01");
 INSERT INTO User VALUES (1,"diogomoura","ce47fa5f3a0a54a65fead7c798669e1ae1b73809d4a1f525eb948afe697b4c00a5c2361afb54cad0e4ffd9c51549eb6d73e4a3e4d594ec80a639365ad8b3e78a","diogomoura13@gmail.com","Diogo","1995-08-05",1);
+INSERT INTO User VALUES(2,"sergio","ce47fa5f3a0a54a65fead7c798669e1ae1b73809d4a1f525eb948afe697b4c00a5c2361afb54cad0e4ffd9c51549eb6d73e4a3e4d594ec80a639365ad8b3e78a","sergiomieic@gmail.com","Sergio","1995-05-05",1);
+
+INSERT INTO Event VALUES(1,"PartyTime","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam",1,1);
+INSERT INTO Event VALUES(2,"PartyTime2","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam",1,1);
+INSERT INTO Event VALUES(3,"PartyTime3","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam",1,1);
+INSERT INTO Event VALUES(4,"PartyTime4","25-11-2015","25-12-2015","Republica Nabense",0,"FESTA","Vai ser grande cena bois... Aparecam",1,2);
+
+INSERT INTO UserEvent VALUES(4,1,1);

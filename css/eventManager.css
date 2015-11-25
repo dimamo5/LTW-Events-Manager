@@ -1,0 +1,155 @@
+html{
+	background-image: url('\../static/website/background.jpg');
+	background-attachment: fixed;
+	background-position:center center;
+	background-size:cover;
+	background-repeat:no-reapeat;
+	display: block;
+}
+body{
+	width: 65%;
+	margin:0 auto;
+	background-color: rgba(88, 52, 40, 0.69);;
+    margin-top: 4%;
+}
+
+div#hmenu {
+   margin: auto auto;
+   /* padding: 1.5% 0 1.5% 0; */
+   height: 8%;
+   background: #ED7A43;
+   width: 100%;
+   text-align: center;
+   position: fixed;
+   top:0;
+   left:0;
+   border-bottom:1px solid;
+   box-shadow: 0 1px 15px 1px;
+   box-sizing: border-box;
+} 
+
+div#hmenu ul {
+   list-style: none;
+   margin: 0 auto;
+   padding: 0;
+   width: 65%;
+   margin: 0 auto;
+   height: 100%;
+   vertical-align: middle;
+   display: inline-block;
+} 
+
+div#hmenu ul li {
+   margin: 0 auto;
+   padding: 0;
+   display: inline;
+   height: 100%;
+   display: table-cell;
+} 
+
+div#hmenu ul a:link{ 
+   margin: 0; 
+   padding: .3em .4em .3em .4em; 
+   text-decoration: none; 
+   font-weight: bold; 
+   font-size: medium; 
+   color: #004415; 
+} 
+
+div#hmenu ul a:visited{ 
+   margin: 0; 
+   padding: .3em .4em .3em .4em; 
+   text-decoration: none; 
+   font-weight: bold; 
+   font-size: medium; 
+   color: #227755; 
+} 
+
+div#hmenu ul a:active{ 
+   margin: 0; 
+   padding: .3em .4em .3em .4em; 
+   text-decoration: none; 
+   font-weight: bold; 
+   font-size: medium; 
+   color: #227755; 
+} 
+
+div#hmenu ul a:hover{ 
+   margin: 0; 
+   padding: .3em .4em .3em .4em; 
+   text-decoration: none; 
+   font-weight: bold; 
+   font-size: medium; 
+   color: #f6f0cc; 
+   background-color: #227755; 
+}
+
+.card{
+    background-color: #F5943E;
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    box-shadow: 2px 2px 5px 1px;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 0.5em;
+    /* overflow: hidden; */
+    /* box-sizing: border-box; */
+}
+
+.card h1 {
+    margin:0px;
+    padding:10px;
+    padding-bottom:0px;
+}
+.card .descText {
+    margin: 0 auto;
+    height: 100%;
+    display: inline-block;
+    padding: 0px;
+    border: 0px;
+    /* vertical-align: middle; */
+    width: 80%;
+    box-sizing: border-box;
+    padding-right: 1em;
+    text-align: justify;
+    float: left;
+    /* overflow: auto; */
+}
+.card-image {
+    width:100%;
+    height:200px;
+    padding:0px;
+    margin:0px;
+    background-position:center;
+    background-repeat:no-repeat;
+    position:relative;
+    overflow:hidden;
+}
+
+.card .imgContainer {
+display: inline-block;border: 0;vertical-align: middle;width: 20%;/* height: auto; */margin: auto;padding: 0;/* float: right; */}
+
+.desc {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.imgContainer img{
+    width: 100%;
+    height: auto;
+}
+
+.imgContainer {}
+
+img#logo {
+height: 80%;width: auto;float: left;margin: 0.5em;}
+
+div#containerNavBar {
+    display: inline-block;
+    width: 70%;
+    height: 100%;
+    margin: auto;
+}

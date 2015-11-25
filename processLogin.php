@@ -1,15 +1,18 @@
 <?php ob_start();
-include_once 'databaseConnection.php';
 session_start();
+include_once('databaseConnection.php');
 
 if (isset($_POST["username"], $_POST["password"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     if (login($username, $password)) {
-        echo $_SESSION["userId"];
-    } 
+        echo json_encode(["login"=>$_SESSION["userId"]]);
+    }else{
+        $data=array("login"=>"error");
+        echo json_encode($data);
+    }
 } else {
-    echo "Invalid Request";
+    echo json_encode(["login"=>"error"]);
 }
 ob_end_flush();
 ?>
