@@ -19,7 +19,7 @@
     <title>Event Maganger</title>
 	
 	<link rel="shortcut icon" href="static/website/logo.png">
-    
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/eventManager.css">
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -28,21 +28,33 @@
 
 
 </head>
-
 <body>
 <div id="hmenu">
-<ul>
-	<img id="logo" src="static/website/logo.png"></img>
 	<div id="containerNavBar">
-  <form id="searchbox" action="">
-    <input id="search" type="text" placeholder="Type here">
-    <input id="submit" type="submit" value="Search">
-</form>
-  <li><a href="news.asp">News</a></li>
-  <li><a href="contact.asp">Contact</a></li>
-  <li><a href="logout.php">Logout</a></li>
-  </div>
-</ul>
+		
+		<ul class="nav">
+			<img id="logo" src="static/website/logo.png"></img>
+			<li id="search">
+				<form action="" method="get">
+					<input type="text" name="search_text" id="search_text" placeholder="Search" />
+					<button type="submit" name="search_button" id="search_button"><i class="fa fa-search"></i></button>
+				</form>
+			</li>
+			<li id="options">
+				<a href="#">Options  <i class="fa fa-arrow-down"></i></a>
+				<ul class="subnav">
+					<li><a href="#">Settings</a></li>
+					<li><a href="#">Application</a></li>
+					<li><a href="#">Board</a></li>
+					<li><a href="logout.php">Logout</a></li>
+				</ul>
+			</li>
+			<li id="profile">
+				<a href="profile">Profile</a>
+			</li>
+			
+		</ul>
+	</div>
 </div>
 
 
@@ -62,8 +74,6 @@
 			</div>
 		</div>
 	<?php } ?>
-
-?>
 
 </body>
 </html>

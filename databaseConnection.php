@@ -43,4 +43,35 @@ function getMyEvents(){
 	$result = $stmt->fetchAll();
     return $result;
 }
+
+function getEvent($id){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM Event WHERE idEvent=:id");
+    $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+    
+	$stmt->execute();  
+	$result = $stmt->fetchAll();
+    return $result[0];
+}
+
+function hasAccess($id){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM UserEvent WHERE idUser=:id AND idEvent=:idEvent");
+    $stmt->bindParam(':id',$_SESSION["userId"],PDO::PARAM_INT);
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+    
+	$stmt->execute();  
+	$result = $stmt->fetchAll();
+    
+    if(count($result)>0){
+        return true;
+    }else return false;
+    
+    
+}
+
+
+
 ?>
