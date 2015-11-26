@@ -33,7 +33,7 @@
 	<div id="containerNavBar">
 		
 		<ul class="nav">
-			<img id="logo" src="static/website/logo.png"></img>
+			<a href="index.php"><img id="logo" src="static/website/logo.png"></img></a>
 			<li id="search">
 				<form action="" method="get">
 					<input type="text" name="search_text" id="search_text" placeholder="Search" />

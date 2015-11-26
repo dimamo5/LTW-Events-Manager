@@ -3,14 +3,17 @@ html{
 	background-attachment: fixed;
 	background-position:center center;
 	background-size:cover;
-	background-repeat:no-reapeat;
 	display: block;
+	box-sizing: border-box;
 }
 body{
 	width: 65%;
 	margin:0 auto;
 	background-color: rgba(88, 52, 40, 0.69);
-    margin-top: 4%;
+	background-attachment: fixed;
+	margin-top: 4%;
+	height: 100%;
+	box-sizing: border-box;
 }
 
 div#hmenu {
@@ -38,6 +41,9 @@ div#hmenu {
 	font-family: 'Open Sans', sans-serif;
     /* overflow: hidden; */
     /* box-sizing: border-box; */
+}
+.card:hover{
+	background-color:rgba(178,93,56,1);
 }
 
 .card h1 {
