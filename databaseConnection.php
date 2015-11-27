@@ -72,6 +72,58 @@ function hasAccess($id){
     
 }
 
+function isAdmin($idEvent,$idAdmin){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM Event WHERE idOwner=:idAdmin AND idEvent=:idEvent;");
+    $stmt->bindParam(':idAdmin',$idAdmin,PDO::PARAM_INT);
+    $stmt->bindParam(':idEvent',$idEvent,PDO::PARAM_INT);
+    
+	$stmt->execute();  
+	$result = $stmt->fetchAll();
+    
+    if(count($result)>0){
+        return true;
+    }else return false;
+}
+
+function deleteEvent($id){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("DELETE FROM Event WHERE idEvent=:idEvent;");
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+	
+	$result=$stmt->execute();  
+    if($result>0){
+        $stmt2=$db->prepare("DELETE FROM UserEvent WHERE idEvent=:idEvent");
+        $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
+        $result2=$stmt2->execute();
+        if($result2>0){
+            return true;
+        }
+    }
+}
+
+function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$type){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("UPDATE Event SET nameEvent=:nameEvent,description=:description,creationDate=:creationDate,endDate=:endDate,local=:local,type=:type WHERE idEvent=:idEvent");
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+    $stmt->bindParam(':nameEvent',$description,PDO::PARAM_STR);
+    $stmt->bindParam(':description',$nameEvent,PDO::PARAM_STR);
+    $stmt->bindParam(':creationDate',$creationDate,PDO::PARAM_STR);
+    $stmt->bindParam(':endDate',$endDate,PDO::PARAM_STR);
+    $stmt->bindParam(':local',$local,PDO::PARAM_STR);
+    $stmt->bindParam(':type',$type,PDO::PARAM_STR);
+	
+	$result=$stmt->execute();  
+    if($result>0){
+        return true;
+    }else{
+         return false;
+    }
+}
+
 
 
 ?>

@@ -1,4 +1,4 @@
-<?php ob_start();
+<?php
 session_start();
 include_once('databaseConnection.php');
 
@@ -14,5 +14,4 @@ if (isset($_POST["username"], $_POST["password"])) {
 } else {
     echo json_encode(["login"=>"error"]);
 }
-ob_end_flush();
 ?>
