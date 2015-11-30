@@ -124,6 +124,37 @@ function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$ty
     }
 }
 
+function getAllPosts($id){
+     $db = new PDO('sqlite:event.db');
 
+    $stmt=$db->prepare("SELECT * FROM Post WHERE idEvent=:id");
+    $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+    
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+function getAllComments($id){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM Comment WHERE idPost=:id");
+    $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+    
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+function getUser($id){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM User WHERE idUser=:id");
+    $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+    
+    $stmt->execute();  
+    $result = $stmt->fetch();
+    return $result;
+}
 
 ?>

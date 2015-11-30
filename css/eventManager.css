@@ -42,6 +42,58 @@ div#hmenu {
     /* overflow: hidden; */
     /* box-sizing: border-box; */
 }
+
+.cardEvent#comment, .cardEvent#newCmt{
+	border-radius: 15px;
+	background-color: #FFB266;
+	margin-bottom: 10px;
+}
+
+.cardEvent#post h4, .cardEvent#comment h4{
+	font-size:1.4em; 
+	margin-top: 10px;
+	margin-bottom: 0px;
+	margin-left: 2%;
+}
+
+.cardEvent#post p#info, .cardEvent#comment p#info{
+	font-size:1.1em; 
+	margin-top: 10px;
+	margin-bottom: 15px;
+	margin-left: 4%;
+}
+
+.cardEvent#comment p#date{
+	position: relative;
+	left: 90%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 0.8em;
+}
+
+.cardEvent#newCmt button#button{
+	width: 10%;
+    height: 30px;
+    background-color: #D05B3A;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #762E18;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    outline: none;
+    cursor: pointer;
+    margin-left: 5%;
+}
+.cardEvent#newCmt {
+	width: 70%;border-left: 
+}
+.cardEvent#newCmt textarea#commentText{
+	margin-left: 5%;
+}
+
 .card:hover{
 	background-color:rgba(178,93,56,1);
 }
