@@ -124,6 +124,51 @@ function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$ty
     }
 }
 
+function getUsers(){
+     $db = new PDO('sqlite:event.db');
+     $stmt=$db->prepare("SELECT User.idUser,User.name FROM User;");
+     $stmt->execute();  
+     $result = $stmt->fetchAll();
+     if($result>0){
+        return $result;
+    }else return false;
+}
 
+function getUsersEvent($eventId){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT User.id,User.name,UserEvent.confirm FROM User,UserEvent WHERE idEvent=:eventId AND User.idUser=UserEvent.idUser;");
+    $stmt->bindParam(':eventId',$eventId,PDO::PARAM_INT);
+    
+    $stmt->execute(); 
+    $result = $stmt->fetchAll(); 
+    
+    if($result>0){
+        return $result;
+    }else{
+         return false;
+    }
+}
+
+function createEvent($description,$nameEvent,$creationDate,$endDate,$local,$type,$ownerId){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("INSERT INTO Event VALUES(:nameEvent,:creationDate,:endDate,:local,:public,:type,:description,1,:ownerId)");
+    $stmt->bindParam(':nameEvent',$description,PDO::PARAM_STR);
+    $stmt->bindParam(':description',$nameEvent,PDO::PARAM_STR);
+    $stmt->bindParam(':creationDate',$creationDate,PDO::PARAM_STR);
+    $stmt->bindParam(':public',$public,PDO::PARAM_STR);
+    $stmt->bindParam(':endDate',$endDate,PDO::PARAM_STR);
+    $stmt->bindParam(':local',$local,PDO::PARAM_STR);
+    $stmt->bindParam(':type',$type,PDO::PARAM_STR);
+    $stmt->bindParam(':ownerId',$ownerId,PDO::PARAM_STR);
+	
+	$result=$stmt->execute();  
+    if($result>0){
+        return true;
+    }else{
+         return false;
+    }
+}
 
 ?>

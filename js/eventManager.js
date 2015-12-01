@@ -39,6 +39,11 @@ $(document).ready(function () {
 		$("#openModal").hide();
 	}
 		);
+		
+	$("#addUser").click(function (e) {
+		$("#inviteUser").show();
+
+	});
 
 $('#save').click(function (e) {
 		e.preventDefault();

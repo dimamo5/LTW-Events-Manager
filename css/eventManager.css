@@ -10,16 +10,24 @@ body{
 	width: 65%;
 	margin:0 auto;
 	background-color: rgba(88, 52, 40, 0.69);
+	background-size: contain;
 	background-attachment: fixed;
-	margin-top: 4%;
+	margin-top: 5em;
 	height: 100%;
 	box-sizing: border-box;
+	display: block;
+}
+
+@media screen and (max-width: 1000px) {
+    body {
+        width: 100%;
+    }
+    
 }
 
 div#hmenu {
    margin: auto auto;
-   /* padding: 1.5% 0 1.5% 0; */
-   height: 8%;
+   height: 5em;
    background: #ED7A43;
    width: 100%;
    text-align: center;
@@ -38,7 +46,7 @@ div#hmenu {
     margin-bottom: 2em;
     box-shadow: 5px 5px 5px 1px;
     padding: 0.5em;
-	font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     /* overflow: hidden; */
     /* box-sizing: border-box; */
 }
@@ -101,6 +109,13 @@ div#containerNavBar {
     width: 65%;
     height: 100%;
     margin: auto;
+}
+
+
+@media screen and (max-width: 1000px) {
+div#containerNavBar{
+        width:100%
+    }
 }
 
 .nav {
@@ -288,12 +303,13 @@ i#deleteEvent{
 	width: 400px;
 	position: relative;
 	margin: 10% auto;
-	padding: 5px 20px 13px 20px;
-    background: #fff;
-    border-top: 5px solid #D05B3A;
 }
 
-.modalDialog > div input {
+.form label,.form label{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form input {
     width: 100%;
     height: 42px;
     box-sizing: border-box;
@@ -306,11 +322,11 @@ i#deleteEvent{
     outline: none;
 }
 
-.modalDialog div input:focus{
+.form input:focus{
 	border: 1px solid #762E18;
 }
 
-.modalDialog div button {
+.form button {
     width: 40%;
     height: 40px;
     background-color: #D05B3A;
@@ -328,7 +344,7 @@ i#deleteEvent{
     margin-right: 4%;
 }
 
-.modalDialog button:hover{
+.form button:hover{
 	background: #762E18;
 }
 
@@ -337,3 +353,88 @@ div#selectOption {
     margin-bottom: 3%;
 }
 
+
+
+li.listUsers {
+    width: 100%;
+    height: 3em;
+    margin: 0 auto;
+    display: table;
+}
+
+div#goes {
+    display: table-cell;
+    padding: 0;
+    height: 100%;
+    width: auto;
+    margin: auto;
+    vertical-align: middle;
+}
+
+div#name {
+    display: table-cell;
+    width: auto;
+    vertical-align: middle;
+}
+
+div#add {
+    display: table-cell;
+    width: auto;
+    vertical-align: middle;
+}
+
+ul#listUser {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.form {
+    padding: 5px 20px 20px 20px;
+    background: #fff;
+    border-top: 5px solid #D05B3A;
+}
+
+div#newEventContainer {
+    margin: 0 20%;
+    padding: 2em;
+}
+
+button#create {
+}
+
+.form div#choosePublic {
+    width: 90%;
+    height: 42px;
+    display: table;
+    margin: 0 auto;
+}
+
+input#publicRadio {
+    width: 35%;
+    height: 42px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+input#privateRadio {
+    width: 35%;
+    height: 42px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+label#publicLabel {
+    width: 15%;
+    height: 42px;
+    display: table-cell;
+    padding: 0;
+    vertical-align: middle;
+}
+
+label#privateLabel {
+    width: 15%;
+    display: table-cell;
+    height: 42px;
+    vertical-align: middle;
+}
