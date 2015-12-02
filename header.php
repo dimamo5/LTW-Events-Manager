@@ -16,7 +16,7 @@
     <meta name="description" content="">
     <meta name="author" content="Diogo Moura">
 
-    <title>Event Maganger</title>
+    <title>Event Manager</title>
 	
 	<link rel="shortcut icon" href="static/website/logo.png">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -50,7 +50,7 @@
 				</ul>
 			</li>
 			<li id="profile">
-				<a href="profile">Profile</a>
+				<a href="profile.php">Profile</a>
 			</li>
 			
 		</ul>
