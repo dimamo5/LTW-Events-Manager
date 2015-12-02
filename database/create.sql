@@ -19,6 +19,7 @@ CREATE TABLE Event(
 	public BOOLEAN,
 	type TEXT,
 	description TEXT,
+	hour STRING,
 	idPhoto INTEGER REFERENCES Photo(idPhoto),
 	idOwner INTEGER REFERENCES User(idUser)
 );

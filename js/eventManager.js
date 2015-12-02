@@ -83,6 +83,40 @@ $('#save').click(function (e) {
 				});
 });
 
+/*$("#newEvent").submit(function(e){
+	e.preventDefault();
+		var nameEvent = $("#nameEvent").val();
+		var description = $("#description").val();
+		var creationDate = $("#creationDate").val();
+		var endDate = $("#endDate").val();
+		var local = $("#local").val();
+		var type = $("#type").val();
+		var public=$('input[name=public]:checked', '#newEvent').val();
+		var image=$("#eventImage").val();
+		
+		var formData = new FormData(this);
+
+		
+		$.post("processNewEvent.php",
+				formData,
+				function (data) {
+					var result = JSON.parse(data);
+						switch (result["create"]) {
+							case "failed":
+								swal("Error Editing Event");
+								break;
+							default:
+								window.location.href="event.php?id="+result["create"];
+								break;
+						}
+					}
+				)
+				.fail(function (error) {
+					console.log("erro!!!");
+				});
+});*/
+
+
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {

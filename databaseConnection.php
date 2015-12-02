@@ -109,8 +109,8 @@ function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$ty
 
     $stmt=$db->prepare("UPDATE Event SET nameEvent=:nameEvent,description=:description,creationDate=:creationDate,endDate=:endDate,local=:local,type=:type WHERE idEvent=:idEvent");
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
-    $stmt->bindParam(':nameEvent',$description,PDO::PARAM_STR);
-    $stmt->bindParam(':description',$nameEvent,PDO::PARAM_STR);
+    $stmt->bindParam(':nameEvent',$nameEvent,PDO::PARAM_STR);
+    $stmt->bindParam(':description',$description,PDO::PARAM_STR);
     $stmt->bindParam(':creationDate',$creationDate,PDO::PARAM_STR);
     $stmt->bindParam(':endDate',$endDate,PDO::PARAM_STR);
     $stmt->bindParam(':local',$local,PDO::PARAM_STR);
@@ -150,25 +150,24 @@ function getUsersEvent($eventId){
     }
 }
 
-function createEvent($description,$nameEvent,$creationDate,$endDate,$local,$type,$ownerId){
+function createEvent($description,$nameEvent,$creationDate,$endDate,$local,$type,$public,$ownerId){
     $db = new PDO('sqlite:event.db');
 
-    $stmt=$db->prepare("INSERT INTO Event VALUES(:nameEvent,:creationDate,:endDate,:local,:public,:type,:description,1,:ownerId)");
-    $stmt->bindParam(':nameEvent',$description,PDO::PARAM_STR);
-    $stmt->bindParam(':description',$nameEvent,PDO::PARAM_STR);
+    $stmt=$db->prepare("INSERT INTO Event(nameEvent,creationDate,endDate,local,public,type,description,idPhoto,idOwner)
+    VALUES(:nameEvent,:creationDate,:endDate,:local,:public,:type,:description,1,:ownerId)");
+    $stmt->bindParam(':nameEvent',$nameEvent,PDO::PARAM_STR);
+    $stmt->bindParam(':description',$description,PDO::PARAM_STR);
     $stmt->bindParam(':creationDate',$creationDate,PDO::PARAM_STR);
-    $stmt->bindParam(':public',$public,PDO::PARAM_STR);
+    $stmt->bindParam(':public',$public,PDO::PARAM_BOOL);
     $stmt->bindParam(':endDate',$endDate,PDO::PARAM_STR);
     $stmt->bindParam(':local',$local,PDO::PARAM_STR);
     $stmt->bindParam(':type',$type,PDO::PARAM_STR);
     $stmt->bindParam(':ownerId',$ownerId,PDO::PARAM_STR);
 	
 	$result=$stmt->execute();  
-    if($result>0){
-        return true;
-    }else{
-         return false;
-    }
+    $lastId=$db->lastInsertId("idEvent");
+    
+    return $lastId;
 }
 
 ?>
