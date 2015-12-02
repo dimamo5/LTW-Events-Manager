@@ -134,6 +134,21 @@ function getUsers(){
     }else return false;
 }
 
+function getUser(userId){
+    $db = new PDO('sqlite:event.db');
+    $stmt=$db->prepare("SELECT User.name FROM User WHERE User.idUser=:userid;");
+    $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
+    
+    $stmt->execute(); 
+    $result = $stmt->fetchAll();
+    
+     if($result>0){
+        return $result;
+    }else return false;    
+}
+
+
+
 function getUsersEvent($eventId){
     $db = new PDO('sqlite:event.db');
 
