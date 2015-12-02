@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-	$("#password2").keyup(function () {
+	$("#password2").keyup(function () {// gosto e penis
 		var password = $("#password").val();
 		var password2 = $("#password2").val();
 		if (password == password2) {
@@ -19,15 +19,13 @@ $(document).ready(function () {
 		var username = $("#username").val();
 		var password = $("#password").val();
 		var password2 = $("#password2").val();
-
 		var email = $("#email").val();
 		var birthday = $("#birthday").val();
 		var name = $("#name").val();
 
-		var dataString = 'username=' + username + '&password=' + password + '&email=' + email + '&name=' + name + '&birthday=' + birthday;
-		console.log(dataString);
-
-		if ($.trim(username).length > 0 && $.trim(password).length > 0 && password == password2) {
+		if (password != password2) {
+			swal("Password does not match!");
+		} else {
 			$.post("processRegister.php",
 				{
 					'username': username,
@@ -38,25 +36,27 @@ $(document).ready(function () {
 				},
 				function (data) {
 					console.log(data);
-					if (data) {
-						alert("0");
+					data=JSON.parse(data);
+					switch(data["register"]){
+						case "username taken":
+							swal("Username Taken");
+							$("#username").css("border", "1px solid red");
+						break;
+						
+						case "email taken":
+							swal("Email Taken");
+							$("#email").css("border", "1px solid red");
+						break;
+						
+						case "success":
+							window.location.href="login.php";
+						break;
 					}
-					else {
-						alert("1");
-						//Shake animation effect.
-						/*$('.register-block').effect("shake");
-						console.log("error");
-						$("#error").html("<span style='color:#cc0000'>Error:</span> Invalid username and password. ");*/
-					}
+					
 				})
 				.fail(function (error) {
 					console.log("erro!!!");
 				});
-
-		} else {
-			$('.register-block').effect("shake");
-			console.log("entra");
-			return false;
 		}
 
 	});

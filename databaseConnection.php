@@ -1,7 +1,7 @@
 <?php
 function login($username, $password)
 {  
-    $db = $db = new PDO('sqlite:event.db');
+    $db = new PDO('sqlite:event.db');
     $query = "SELECT * FROM User WHERE loginId='";
     $query .= $username . "';";
        
@@ -24,6 +24,40 @@ function login($username, $password)
         return true;
     } else return false;
 }
+
+function register($username,$password,$email,$name,$birthdate){
+    $db = new PDO('sqlite:event.db');
+    
+    $stmt=$db->prepare("SELECT * FROM User WHERE loginId=:username");
+    $stmt->bindParam(':username',$username,PDO::PARAM_STR);
+    $stmt->execute(); 
+    $result = $stmt->fetchAll();
+    if(count($result)>0){
+        return "username taken";
+    }
+    
+    $stmt=$db->prepare("SELECT * FROM User WHERE email=:email");
+    $stmt->bindParam(':email',$email,PDO::PARAM_STR);
+    $stmt->execute(); 
+    $result = $stmt->fetchAll();
+    if(count($result)>0){
+        return "email taken";
+    }
+    
+    $password = hash('sha512', $password);
+    
+    $stmt=$db->prepare("INSERT INTO User(loginId,password,email,name,birthday,idPhoto)
+    VALUES(:username,:password,:email,:name,:birthday,1)");
+    $stmt->bindParam(':username',$username,PDO::PARAM_STR);
+    $stmt->bindParam(':password',$password,PDO::PARAM_STR);
+    $stmt->bindParam(':email',$email,PDO::PARAM_STR);
+    $stmt->bindParam(':name',$name,PDO::PARAM_STR);
+    $stmt->bindParam(':birthday',$birthday,PDO::PARAM_STR);
+    $stmt->execute();
+    
+    return "success";
+}
+
 
 function login_check()
 {
@@ -150,19 +184,22 @@ function getUsersEvent($eventId){
     }
 }
 
-function createEvent($description,$nameEvent,$creationDate,$endDate,$local,$type,$public,$ownerId){
+function createEvent($description,$nameEvent,$creationDate,$hour,$endDate,$local,$type,$public,$photoId,$ownerId){
     $db = new PDO('sqlite:event.db');
 
-    $stmt=$db->prepare("INSERT INTO Event(nameEvent,creationDate,endDate,local,public,type,description,idPhoto,idOwner)
-    VALUES(:nameEvent,:creationDate,:endDate,:local,:public,:type,:description,1,:ownerId)");
+    $stmt=$db->prepare("INSERT INTO 
+    Event(nameEvent,creationDate,endDate,local,public,type,description,hour,idPhoto,idOwner)
+    VALUES(:nameEvent,:creationDate,:endDate,:local,:public,:type,:description,:hour,:photoId,:ownerId)");
     $stmt->bindParam(':nameEvent',$nameEvent,PDO::PARAM_STR);
     $stmt->bindParam(':description',$description,PDO::PARAM_STR);
     $stmt->bindParam(':creationDate',$creationDate,PDO::PARAM_STR);
+    $stmt->bindParam(':hour',$hour,PDO::PARAM_STR);
     $stmt->bindParam(':public',$public,PDO::PARAM_BOOL);
     $stmt->bindParam(':endDate',$endDate,PDO::PARAM_STR);
     $stmt->bindParam(':local',$local,PDO::PARAM_STR);
     $stmt->bindParam(':type',$type,PDO::PARAM_STR);
     $stmt->bindParam(':ownerId',$ownerId,PDO::PARAM_STR);
+    $stmt->bindParam(':photoId',$photoId,PDO::PARAM_STR);
 	
 	$result=$stmt->execute();  
     $lastId=$db->lastInsertId("idEvent");
@@ -170,4 +207,16 @@ function createEvent($description,$nameEvent,$creationDate,$endDate,$local,$type
     return $lastId;
 }
 
+function addPhoto($path){
+     $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("INSERT INTO Photo(path,uploadDate)
+    VALUES(:path,date('now'))");
+    $stmt->bindParam(':path',$path,PDO::PARAM_STR);
+    	
+	$result=$stmt->execute();  
+    $lastId=$db->lastInsertId("idPhoto");
+    
+    return $lastId;
+}
 ?>
