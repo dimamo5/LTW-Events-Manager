@@ -1,9 +1,16 @@
-
 <?php
-	require_once('header.php');
+	require 'header.php' ;
 
-    $results = getMyEvents();
-	foreach($results as $result) { ?>
+	if(!isset($_GET["search_text"])){	
+		echo "Enter a search term in the box above.";		
+	}
+	else if( strlen($_GET["search_text"]) == 0){
+		echo "Enter a search term in the box above.";
+	}
+	else{
+		$results=getEventSearch($_GET["search_text"]);
+				
+		foreach($results as $result) { ?>
 		<div class="card"  id="event<?php echo $result["idEvent"]?>"  >
 			<h1><?php echo $result['nameEvent'] ?></h1>
 			<div class="desc">
@@ -16,9 +23,10 @@
 				</div>
 			</div>
 		</div>
-	<?php } 
-	
-	
-	require_once('footer.php');
-?>
+	<
+			<?php 
+			}
+		}
 
+	require 'footer.php';
+ ?>

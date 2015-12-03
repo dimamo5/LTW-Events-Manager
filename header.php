@@ -38,7 +38,7 @@
 				<a href="index.php"><img id="logo" src="static/website/logo.png"></img>
 				</a>
 				<li id="search">
-					<form action="" method="get">
+					<form action="eventSearchPage.php" method="get">
 						<input type="text" name="search_text" id="search_text" placeholder="Search" />
 						<button type="submit" name="search_button" id="search_button"><i class="fa fa-search"></i></button>
 					</form>

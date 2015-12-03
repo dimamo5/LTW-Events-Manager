@@ -221,6 +221,28 @@ function getUsersEvent($eventId){
     }
 }
 
+function getEventSearch($string){
+    $db = new PDO('sqlite:event.db');
+
+    $string = "%".$string."%"; 
+
+    $stmt=$db->prepare("SELECT Event.* FROM Event,User,UserEvent WHERE User.idUser=:userId AND UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent AND Event.nameEvent LIKE :search
+                        UNION SELECT Event.* FROM Event WHERE Event.public=1 AND Event.nameEvent LIKE :search GROUP BY Event.idEvent;");
+   
+    $stmt->bindParam(':search',$string, PDO::PARAM_STR);
+    $stmt->bindParam(':userId',$_SESSION['userId'], PDO::PARAM_INT);
+    
+    $stmt->execute(); 
+    $result = $stmt->fetchAll(); 
+    
+    if($result>0){
+        return $result;
+    }else{
+         return false;
+    }    
+}
+
+
 function createEvent($description,$nameEvent,$creationDate,$hour,$endDate,$local,$type,$public,$photoId,$ownerId){
     $db = new PDO('sqlite:event.db');
 
