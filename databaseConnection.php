@@ -6,8 +6,8 @@ function login($username, $password)
     $query .= $username . "';";
        
     $stmt = $db->prepare($query);
-	$stmt->execute();  
-	$result = $stmt->fetchAll();
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
     if(count($result)==0){
         return false;
     }
@@ -73,8 +73,8 @@ function getMyEvents(){
     $stmt=$db->prepare("SELECT Event.* FROM UserEvent,Event WHERE idUser=:userId AND Event.idEvent=UserEvent.idEvent");
     $stmt->bindParam(':userId',$_SESSION["userId"],PDO::PARAM_INT);
     
-	$stmt->execute();  
-	$result = $stmt->fetchAll();
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
     return $result;
 }
 
@@ -84,8 +84,8 @@ function getEvent($id){
     $stmt=$db->prepare("SELECT * FROM Event WHERE idEvent=:id");
     $stmt->bindParam(':id',$id,PDO::PARAM_INT);
     
-	$stmt->execute();  
-	$result = $stmt->fetchAll();
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
     return $result[0];
 }
 
@@ -96,8 +96,8 @@ function hasAccess($id){
     $stmt->bindParam(':id',$_SESSION["userId"],PDO::PARAM_INT);
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
     
-	$stmt->execute();  
-	$result = $stmt->fetchAll();
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
     
     if(count($result)>0){
         return true;
@@ -113,8 +113,8 @@ function isAdmin($idEvent,$idAdmin){
     $stmt->bindParam(':idAdmin',$idAdmin,PDO::PARAM_INT);
     $stmt->bindParam(':idEvent',$idEvent,PDO::PARAM_INT);
     
-	$stmt->execute();  
-	$result = $stmt->fetchAll();
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
     
     if(count($result)>0){
         return true;
@@ -126,8 +126,8 @@ function deleteEvent($id){
 
     $stmt=$db->prepare("DELETE FROM Event WHERE idEvent=:idEvent;");
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
-	
-	$result=$stmt->execute();  
+    
+    $result=$stmt->execute();  
     if($result>0){
         $stmt2=$db->prepare("DELETE FROM UserEvent WHERE idEvent=:idEvent");
         $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
@@ -149,8 +149,8 @@ function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$ty
     $stmt->bindParam(':endDate',$endDate,PDO::PARAM_STR);
     $stmt->bindParam(':local',$local,PDO::PARAM_STR);
     $stmt->bindParam(':type',$type,PDO::PARAM_STR);
-	
-	$result=$stmt->execute();  
+    
+    $result=$stmt->execute();  
     if($result>0){
         return true;
     }else{
@@ -193,6 +193,16 @@ function getUserImagePath($userId){
         return $result[0][0];
     }else return false;   
 }
+ 
+function getUser2($userId){
+    $db = new PDO('sqlite:event.db');
+    $stmt=$db->prepare("SELECT * FROM User WHERE idUser=:userid;");
+    $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
+    
+    $stmt->execute(); 
+    $result = $stmt->fetch();
+    return $result;
+}
 
 
 function getUsersEvent($eventId){
@@ -227,8 +237,8 @@ function createEvent($description,$nameEvent,$creationDate,$hour,$endDate,$local
     $stmt->bindParam(':type',$type,PDO::PARAM_STR);
     $stmt->bindParam(':ownerId',$ownerId,PDO::PARAM_STR);
     $stmt->bindParam(':photoId',$photoId,PDO::PARAM_STR);
-	
-	$result=$stmt->execute();  
+    
+    $result=$stmt->execute();  
     $lastId=$db->lastInsertId("idEvent");
     
     return $lastId;
@@ -240,10 +250,46 @@ function addPhoto($path){
     $stmt=$db->prepare("INSERT INTO Photo(path,uploadDate)
     VALUES(:path,date('now'))");
     $stmt->bindParam(':path',$path,PDO::PARAM_STR);
-    	
-	$result=$stmt->execute();  
+        
+    $result=$stmt->execute();  
     $lastId=$db->lastInsertId("idPhoto");
     
     return $lastId;
+}
+
+function getAllPosts($id){
+     $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM Post WHERE idEvent=:id");
+    $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+    
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+function getAllComments($id){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM Comment WHERE idPost=:id");
+    $stmt->bindParam(':id',$id,PDO::PARAM_INT);
+    
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+function addComment($idPost,$idUser,$comment){
+    $db = new PDO('sqlite:event.db');
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $db->prepare("INSERT INTO Comment(idPost,idUser,commentText) VALUES(:idPost,:idUser,:comment)");
+    $stmt->bindParam(':idPost',$idPost,PDO::PARAM_STR);
+    $stmt->bindParam(':idUser',$_SESSION['userId'],PDO::PARAM_STR);
+    $stmt->bindParam(':comment',$comment,PDO::PARAM_STR);
+
+    $result=$stmt->execute();  
+
+    return "success";
 }
 ?>

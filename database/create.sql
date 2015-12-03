@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS UserEvent;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Comment;
 DROP TABLE IF EXISTS Photo;
+DROP TABLE IF EXISTS EventPhoto;
+DROP TABLE IF EXISTS Post;
 
 CREATE TABLE Event(
 	idEvent INTEGER PRIMARY KEY,
@@ -46,7 +48,7 @@ CREATE TABLE Comment (
 	idPost INTEGER REFERENCES Post(idPost),
 	idUser INTEGER REFERENCES User(idUser),
 	commentText TEXT NOT NULL,
-	creationDate DATE NOT NULL
+	creationDate DATE DEFAULT (date('now'))
 );
 
 CREATE TABLE Photo(
@@ -81,5 +83,11 @@ INSERT INTO Event VALUES(1,"PartyTime","25-11-2015","25-12-2015","Republica Nabe
 INSERT INTO Event VALUES(2,"PartyTime2","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
 INSERT INTO Event VALUES(3,"PartyTime3","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
 INSERT INTO Event VALUES(4,"PartyTime4","25-11-2015","25-12-2015","Republica Nabense",0,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,2);
+
+INSERT INTO Post(idEvent,idUser,info) VALUES(1,1,"CENAS E TAL E ASSIM ASSIM");
+INSERT INTO Post(idEvent,idUser,info)  VALUES(1,2,"CENAS E TAL E ASSIM ASSIM");
+
+INSERT INTO Comment(idPost,idUser,commentText,creationDate) VALUES(1,2,"COISITAS","25-11-2015");
+INSERT INTO Comment(idPost,idUser,commentText,creationDate) VALUES(1,1,"COISITAS","29-11-2015");
 
 INSERT INTO UserEvent VALUES(4,1,1);

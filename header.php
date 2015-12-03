@@ -8,30 +8,28 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="Content-Language" content="en">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="Diogo Moura">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Diogo Moura">
 
-	<title>Event Manager</title>
-
+    <title>Event Manager</title>
+	
 	<link rel="shortcut icon" href="static/website/logo.png">
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/eventManager.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/eventManager.css">
 	<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-	<script src="js/sweetalert.min.js"></script>
-	<script src="js/eventManager.js"></script>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="js/sweetalert.min.js"></script>
+<script src="js/eventManager.js"></script>
 
 
 </head>
-
 <body>
 	<div id="hmenu">
 		<div id="containerNavBar">
@@ -61,11 +59,9 @@
 						</div>
 						<div class="profileButtonText">
 							<a href="profile.php"> <?php echo getUser($_SESSION['userId'])['name'] ?> </a>
-						</div>					
-						
+						</div>						
 					</div>
-				</li>
-
+				</li>			
 			</ul>
 		</div>
 	</div>
