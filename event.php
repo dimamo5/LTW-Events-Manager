@@ -13,26 +13,28 @@
 		<div class="imgContainerPage">
 			<img src="static/user/userDefault.png" />
 		</div>
-		<div id="eventInfo">
-			<div>
-				<h1><?php echo $result['nameEvent'] ?></h1>
+		<div class="eventInfo">
+			<div class="eventInfoContent">
+				<div class="name">
+					<h1><?php echo $result['nameEvent']?></h1> <?php if($result["public"]){echo "<i class=\"fa fa-unlock fa-lg\"></i>";}else{echo "<i class=\"fa fa-lock fa-lg\"></i>";}?>
+				</div>
 			<div>
 				<p>
 					<?php echo $result['description'] ?>
 				</p>
 				<p>
-					<?php echo $result['creationDate']." ".$result['endDate']." ".$result['local'] ?>
+					<i class="fa fa-calendar fa-lg"></i> <?php echo $result['creationDate']." ".$result["hour"]."  <i class=\"fa fa-arrow-right fa-lg\"></i>  ".$result['endDate'] ?>
+				</p>
+				<p>
+					<i class="fa fa-map-marker fa-lg"></i> <?php echo $result['local'];?>
 				</p>
 			</div>
 		</div>
-			
-
-
 
 		<div class="options">
-				<i id="addUser" class="fa fa-plus fa-2x"></i>
-				<i id="editEvent" class="fa fa-pencil fa-2x"></i>
-				<i id="deleteEvent" class="fa fa-trash fa-2x"></i>
+				<label id="addUser"><i class="fa fa-users fa-2x"></i> Edit User</label>
+				<label id="editEvent"><i class="fa fa-pencil fa-2x"></i> Edit Event</label>
+				<label id="deleteEvent"><i class="fa fa-trash fa-2x"></i> Delete Event</label>
 
 			</div>
 		</div>

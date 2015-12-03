@@ -13,7 +13,7 @@ body{
 	background-size: contain;
 	background-attachment: fixed;
 	margin-top: 5em;
-	height: 100%;
+	height: auto;
 	box-sizing: border-box;
 	display: block;
 }
@@ -102,7 +102,7 @@ display: inline-block;border: 0;vertical-align: middle;width: 20%;/* height: aut
 }
 
 img#logo {
-height: 80%;width: auto;float: left;/* margin: 0.5em; */margin-left: 1em;border-radius: 50%;margin-right: 1em;}
+height: 80%;width: auto;float: left;margin-left: 1em;border-radius: 50%;margin-right: 1em;}
 
 div#containerNavBar {
     display: inline-block;
@@ -276,11 +276,11 @@ div#options {
 }
 
 i#addUser {
-    margin-right: 10%;
+    cursor: pointer;
 }
 
 i#editEvent {
-    margin-right: 10%;
+    cursor: pointer;
 }
 i#deleteEvent{
 	cursor:pointer;
@@ -458,12 +458,7 @@ form#inviteUserForm {
     height: 20em;
 }
 
-div#event1 {
-    box-sizing: content-box;
-    width: 80%;
-    margin: 0 auto;
-    box-shadow: 5px 5px 5px 1px;
-}
+.cardEventPage {width: 80%;margin: 0 auto;box-shadow: 5px 5px 5px 1px;font-family: 'Open Sans', sans-serif;}
 
 .imgContainerPage img {
     width: 100%;
@@ -471,3 +466,44 @@ div#event1 {
 }
 
 div#event1 {}
+
+div#eventInfo {}
+
+.eventInfo {
+    background: #ED7A43;
+    margin: 0 auto;
+    padding: 1em;
+    display: table;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.eventInfoContent .name h1 {
+    width: 5em;
+    display: table-cell;
+}
+
+.eventInfoContent {
+    display: table-cell;
+}
+
+.options {
+    display: table-cell;
+    box-shadow: 5px 5px 5px 1px;
+    background: rgba(178,93,56,1);
+    padding: 1em;
+    width: 25%;
+}
+
+.options label {
+    cursor: pointer;
+    width: 100%;
+    display: table-row;
+    margin: 0 auto;
+    font-size: large;
+}
+
+.cardEventPage .name {
+    display: table;
+    width: auto;
+}
