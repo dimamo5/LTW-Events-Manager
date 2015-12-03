@@ -168,19 +168,31 @@ function getUsers(){
     }else return false;
 }
 
-function getUser(userId){
+function getUser($userId){
     $db = new PDO('sqlite:event.db');
-    $stmt=$db->prepare("SELECT User.name FROM User WHERE User.idUser=:userid;");
+    $stmt=$db->prepare("SELECT * FROM User WHERE User.idUser=:userid");
     $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
     
     $stmt->execute(); 
     $result = $stmt->fetchAll();
     
      if($result>0){
-        return $result;
+        return $result[0];
     }else return false;    
 }
 
+function getUserImagePath($userId){
+    $db = new PDO('sqlite:event.db');
+    $stmt=$db->prepare("SELECT Photo.path FROM Photo,User WHERE Photo.idPhoto=User.idPhoto AND User.idUser=:userid");
+    $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
+    
+    $stmt->execute(); 
+    $result = $stmt->fetchAll();
+    
+     if($result>0){
+        return $result[0][0];
+    }else return false;   
+}
 
 
 function getUsersEvent($eventId){

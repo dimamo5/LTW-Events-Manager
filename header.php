@@ -55,7 +55,15 @@
 					</ul>
 				</li>
 				<li id="profile">
-					<a href="profile.php">Profile</a>
+					<div class="profileButton">
+						<div class ="profileButtonImage">
+							<img src= <?php echo getUserImagePath($_SESSION['userId']); ?> style="width:50px;height:50px;">	
+						</div>
+						<div class="profileButtonText">
+							<a href="profile.php"> <?php echo getUser($_SESSION['userId'])['name'] ?> </a>
+						</div>					
+						
+					</div>
 				</li>
 
 			</ul>
