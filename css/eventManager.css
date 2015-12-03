@@ -300,7 +300,7 @@ i#deleteEvent{
 }
 
 .modalDialog > div {
-	width: 400px;
+	width: 30em;
 	position: relative;
 	margin: 10% auto;
 }
@@ -356,7 +356,7 @@ div#selectOption {
 
 
 li.listUsers {
-    width: 100%;
+    width: 80%;
     height: 3em;
     margin: 0 auto;
     display: table;
@@ -373,13 +373,15 @@ div#goes {
 
 div#name {
     display: table-cell;
-    width: auto;
+    width: 80%;
     vertical-align: middle;
+    overflow: hidden;
+    margin: 0 auto;
 }
 
 div#add {
     display: table-cell;
-    width: auto;
+    width: 100%;
     vertical-align: middle;
 }
 
@@ -387,6 +389,8 @@ ul#listUser {
     width: 100%;
     margin: 0 auto;
     padding: 0;
+    height: 25em;
+    overflow: auto;
 }
 
 .form {
@@ -438,3 +442,32 @@ label#privateLabel {
     height: 42px;
     vertical-align: middle;
 }
+
+div#inviteUserModal {
+    height: 30em;
+    padding: 2em;
+}
+
+form#inviteUserForm {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.imgContainerPage {
+    width: 100%;
+    height: 20em;
+}
+
+div#event1 {
+    box-sizing: content-box;
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 5px 5px 5px 1px;
+}
+
+.imgContainerPage img {
+    width: 100%;
+    height: 100%;
+}
+
+div#event1 {}

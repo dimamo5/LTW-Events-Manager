@@ -168,7 +168,7 @@ function getUsers(){
     }else return false;
 }
 
-function getUser(userId){
+function getUser($userId){
     $db = new PDO('sqlite:event.db');
     $stmt=$db->prepare("SELECT User.name FROM User WHERE User.idUser=:userid;");
     $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
@@ -181,12 +181,54 @@ function getUser(userId){
     }else return false;    
 }
 
+function getUserEventName($name,$eventId){
+    $db = new PDO('sqlite:event.db');
+
+    $name="%".$name."%";
+
+    $stmt=$db->prepare("SELECT User.idUser,User.name FROM User WHERE name LIKE :name AND idUser NOT IN(SELECT idUser FROM UserEvent WHERE idEvent=:eventId)");
+    $stmt->bindParam(':eventId',$eventId,PDO::PARAM_INT);
+    $stmt->bindParam(':name',$name,PDO::PARAM_STR);
+    
+    $stmt->execute(); 
+    $result = $stmt->fetchAll();   
+        return $result;
+}
+
+function addUser($eventId,$idUser){
+     $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("INSERT INTO UserEvent(idUser,idEvent,confirm) VALUES(:idUser,:idEvent,0)");
+    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_STR);
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_STR);
+    	
+	$result=$stmt->execute();  
+    
+    if($result>0){
+        return $result;
+    }else return false;    
+}
+
+function removeUser($eventId,$idUser){
+     $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("DELETE FROM UserEvent WHERE idUser=:idUser,idEvent=:idEvent)");
+    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_STR);
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_STR);
+    	
+	$result=$stmt->execute();  
+    
+    if($result>0){
+        return $result;
+    }else return false;    
+}
+
 
 
 function getUsersEvent($eventId){
     $db = new PDO('sqlite:event.db');
 
-    $stmt=$db->prepare("SELECT User.id,User.name,UserEvent.confirm FROM User,UserEvent WHERE idEvent=:eventId AND User.idUser=UserEvent.idUser;");
+    $stmt=$db->prepare("SELECT User.idUser,User.name FROM User,UserEvent WHERE idEvent=:eventId AND User.idUser=UserEvent.idUser;");
     $stmt->bindParam(':eventId',$eventId,PDO::PARAM_INT);
     
     $stmt->execute(); 

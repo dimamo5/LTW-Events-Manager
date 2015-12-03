@@ -38,14 +38,14 @@ $(document).ready(function () {
 		$("#openModal").hide();
 	}
 		);
-		
+
 	$("#addUser").click(function (e) {
 		$("#inviteUser").show();
 
 	});
-	
-	
-$('#save').click(function (e) {
+
+
+	$('#save').click(function (e) {
 		e.preventDefault();
 		var nameEvent = $("#nameEvent").val();
 		var description = $("#description").val();
@@ -54,35 +54,135 @@ $('#save').click(function (e) {
 		var local = $("#local").val();
 		var type = $("#type").val();
 
-	$.post("processEdit.php",
-				{
-					'idEvent': parseInt(getUrlParameter("id")),
-					'nameEvent': nameEvent,
-					'description': description,
-					'creationDate': creationDate,
-					'endDate': endDate,
-					'local':local,
-					'type': type
-				},
-				function (data) {
-					var result = JSON.parse(data);
-						switch (result["edit"]) {
-							case "success":
-								swal("Success");
-								$("#openModal").hide();
-								location.reload();
-								break;
-							case "failed":
-								swal("Error Editing Event");
-								break;
-						}
-					}
-				)
-				.fail(function (error) {
-					console.log("erro!!!");
-				});
-});
+		$.post("processEdit.php",
+			{
+				'idEvent': parseInt(getUrlParameter("id")),
+				'nameEvent': nameEvent,
+				'description': description,
+				'creationDate': creationDate,
+				'endDate': endDate,
+				'local': local,
+				'type': type
+			},
+			function (data) {
+				var result = JSON.parse(data);
+				switch (result["edit"]) {
+					case "success":
+						swal("Success");
+						$("#openModal").hide();
+						location.reload();
+						break;
+					case "failed":
+						swal("Error Editing Event");
+						break;
+				}
+			}
+			)
+			.fail(function (error) {
+				console.log("erro!!!");
+			});
+	});
 
+	$('#searchUser').keyup(function (e) {
+		e.preventDefault();
+		var search = $("#searchUser").val();
+
+		$.post("processGetUsers.php",
+			{
+				'username': search,
+				'eventId': parseInt(getUrlParameter("id"))
+			},
+			function (data) {
+				var result = JSON.parse(data);
+				var invited = result["invited"];
+				var notInvited = result["notinvited"];
+				$("#listUser").empty();
+				if(search!=""){
+				for (var i = 0; i < notInvited.length; i++) {
+					var input = "<li id=\"user" + notInvited[i]["idUser"] + "\" class=\"listUsers\">"
+						+ "<div id=\"name\">"+ notInvited[i]["name"] + "</div>"
+						+ "<div id=\"add\">"
+						+ "<i class=\"fa fa-plus fa-lg\"></i>"
+						+ "</div>"
+						+ "</li>";
+
+					$("#listUser").append(input);		
+			}}
+				
+				for (var i = 0; i < invited.length; i++) {
+					var input = "<li id=\"user" + invited[i]["idUser"] + "\" class=\"listUsers\">"
+						+ "<div id=\"name\">"+ invited[i]["name"] + "</div>"
+						+ "<div id=\"sub\">"
+						+ "<i class=\"fa fa-minus fa-lg\"></i>"
+						+ "</div>"
+						+ "</li>";
+
+					$("#listUser").append(input);
+				}
+
+				
+			}
+			)
+			.fail(function (error) {
+				console.log("erro!!!");
+			});
+	});
+	
+	$('#listUser').on("click",' #add',function (e) {
+		
+		var id=e.currentTarget.parentElement.id.split("user")[1];
+		
+		$.post("processEditUser.php",
+			{
+				'idUser': id,
+				'type':'add',
+				'eventId':parseInt(getUrlParameter("id"))
+				
+			},
+			function (data) {
+				var result = JSON.parse(data);
+				switch (result["editUser"]) {
+					case "success":
+						$( "#searchUser" ).trigger( "keyup" );
+						break;
+					case "failed":
+						swal("Error Editing Event");
+						break;
+				}
+			}
+			)
+			.fail(function (error) {
+				console.log("erro!!!");
+			});
+	});
+	
+	$('#listUser').on("click",' #sub',function (e) {
+		
+		var id=e.currentTarget.parentElement.id.split("user")[1];
+		
+		$.post("processEditUser.php",
+			{
+				'idUser': id,
+				'type':'sub',
+				'eventId':parseInt(getUrlParameter("id"))
+				
+			},
+			function (data) {
+				var result = JSON.parse(data);
+				switch (result["editUser"]) {
+					case "success":
+						$( "#searchUser" ).trigger( "keyup" );
+						break;
+					case "failed":
+						swal("Error Editing Event");
+						break;
+				}
+			}
+			)
+			.fail(function (error) {
+				console.log("erro!!!");
+			});
+	});
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {
