@@ -67,15 +67,29 @@ function login_check()
 
 }
 
-function getMyEvents(){
+function getEventsInvited(){
     $db = new PDO('sqlite:event.db');
 
-    $stmt=$db->prepare("SELECT Event.* FROM UserEvent,Event WHERE idUser=:userId AND Event.idEvent=UserEvent.idEvent");
+    $stmt=$db->prepare("SELECT Event.* FROM UserEvent,Event WHERE UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent 
+                        AND UserEvent.idEvent NOT IN(SELECT Event.idEvent FROM Event WHERE Event.idOwner=:userId);");
+   
     $stmt->bindParam(':userId',$_SESSION["userId"],PDO::PARAM_INT);
     
     $stmt->execute();  
     $result = $stmt->fetchAll();
     return $result;
+}
+
+function getEvensAdmin(){
+    
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT Event.* FROM Event WHERE Event.idOwner=:userId");
+    $stmt->bindParam(':userId',$_SESSION["userId"],PDO::PARAM_INT);
+    
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
+    return $result;   
 }
 
 function getEvent($id){
