@@ -5,6 +5,7 @@ html{
 	background-size:cover;
 	display: block;
 	box-sizing: border-box;
+	height: 100%;
 }
 body{
 	width: 65%;
@@ -12,10 +13,9 @@ body{
 	background-color: rgba(88, 52, 40, 0.69);
 	background-size: contain;
 	background-attachment: fixed;
-	margin-top: 5em;
-	height: auto;
 	box-sizing: border-box;
 	display: block;
+	height: 100%;
 }
 
 @media screen and (max-width: 1000px) {
@@ -506,4 +506,19 @@ div#eventInfo {}
 .cardEventPage .name {
     display: table;
     width: auto;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    black;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    black;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    black;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    black;
 }

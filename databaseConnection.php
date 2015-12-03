@@ -81,7 +81,7 @@ function getMyEvents(){
 function getEvent($id){
     $db = new PDO('sqlite:event.db');
 
-    $stmt=$db->prepare("SELECT * FROM Event WHERE idEvent=:id");
+    $stmt=$db->prepare("SELECT Event.*,Photo.path FROM Event,Photo WHERE Event.idEvent=:id AND Event.idPhoto=Photo.idPhoto");
     $stmt->bindParam(':id',$id,PDO::PARAM_INT);
     
 	$stmt->execute();  
@@ -101,9 +101,22 @@ function hasAccess($id){
     
     if(count($result)>0){
         return true;
-    }else return false;
+    }else return false;  
+}
+
+function goesEvent($idEvent,$idUser){
+     $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM UserEvent WHERE idUser=:idUser AND idEvent=:idEvent AND confirm=1");
+    $stmt->bindParam(':idUser',$_SESSION["userId"],PDO::PARAM_INT);
+    $stmt->bindParam(':idEvent',$idEvent,PDO::PARAM_INT);
     
+	$stmt->execute();  
+	$result = $stmt->fetchAll();
     
+    if(count($result)>0){
+        return true;
+    }else return false;  
 }
 
 function isAdmin($idEvent,$idAdmin){

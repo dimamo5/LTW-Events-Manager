@@ -11,7 +11,7 @@
 
 	<div class="cardEventPage" id="event<?php echo $result['idEvent']?>">
 		<div class="imgContainerPage">
-			<img src="static/user/userDefault.png" />
+			<img src=<?php echo $result["path"]?> />
 		</div>
 		<div class="eventInfo">
 			<div class="eventInfoContent">
@@ -32,9 +32,16 @@
 		</div>
 
 		<div class="options">
-				<label id="addUser"><i class="fa fa-users fa-2x"></i> Edit User</label>
-				<label id="editEvent"><i class="fa fa-pencil fa-2x"></i> Edit Event</label>
-				<label id="deleteEvent"><i class="fa fa-trash fa-2x"></i> Delete Event</label>
+				<?php if(isAdmin($_GET["id"],$_SESSION["userId"])){?>
+					<label id="addUser"><i class="fa fa-users fa-2x"></i> Edit User</label>
+					<label id="editEvent"><i class="fa fa-pencil fa-2x"></i> Edit Event</label>
+					<label id="deleteEvent"><i class="fa fa-trash fa-2x"></i> Delete Event</label>
+				<?php }else if(goesEvent($_GET["id"],$_SESSION["userId"])){?>
+					<label id="addUser"><i class="fa fa-users fa-2x"></i> See User</label>
+				<?php }else if(hasAccess($_GET["id"])){?>
+					<label id="inviteUser"><i class="fa fa-plus fa-2x"></i> Confirm Present</label>
+				<?php } ?>
+				
 
 			</div>
 		</div>
