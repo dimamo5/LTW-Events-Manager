@@ -1,21 +1,21 @@
 html{
-	background-image: url('\../static/website/background.jpg');
-	background-attachment: fixed;
-	background-position:center center;
-	background-size:cover;
-	display: block;
-	box-sizing: border-box;
+    background-image: url('\../static/website/background.jpg');
+    background-attachment: fixed;
+    background-position:center center;
+    background-size:cover;
+    display: block;
+    box-sizing: border-box;
 }
 body{
-	width: 65%;
-	margin:0 auto;
-	background-color: rgba(88, 52, 40, 0.69);
-	background-size: contain;
-	background-attachment: fixed;
-	margin-top: 5em;
-	height: 100%;
-	box-sizing: border-box;
-	display: block;
+    width: 65%;
+    margin:0 auto;
+    background-color: rgba(88, 52, 40, 0.69);
+    background-size: contain;
+    background-attachment: fixed;
+    margin-top: 5em;
+    height: 100%;
+    box-sizing: border-box;
+    display: block;
 }
 
 @media screen and (max-width: 1000px) {
@@ -50,8 +50,60 @@ div#hmenu {
     /* overflow: hidden; */
     /* box-sizing: border-box; */
 }
+
+.cardEvent#comment, .cardEvent#newCmt{
+    border-radius: 15px;
+    background-color: #FFB266;
+    margin-bottom: 10px;
+}
+
+.cardEvent#post h4, .cardEvent#comment h4{
+    font-size:1.4em; 
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 2%;
+}
+
+.cardEvent#post p#info, .cardEvent#comment p#info{
+    font-size:1.1em; 
+    margin-top: 10px;
+    margin-bottom: 15px;
+    margin-left: 4%;
+}
+
+.cardEvent#comment p#date{
+    position: relative;
+    left: 90%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 0.8em;
+}
+
+.cardEvent#newCmt button#button{
+    width: 10%;
+    height: 30px;
+    background-color: #D05B3A;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #762E18;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    outline: none;
+    cursor: pointer;
+    margin-left: 5%;
+}
+.cardEvent#newCmt {
+    width: 70%;border-left: 
+}
+.cardEvent#newCmt textarea#commentText{
+    margin-left: 5%;
+}
+
 .card:hover{
-	background-color:rgba(178,93,56,1);
+    background-color:rgba(178,93,56,1);
 }
 
 .card h1,.cardEvent h1 {
@@ -119,124 +171,124 @@ div#containerNavBar{
 }
 
 .nav {
-	height: 100%;
-	width: 100%;
-	display: inline-block;
-	margin: 0.5em auto;
-	padding: 0;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    margin: 0.5em auto;
+    padding: 0;
 }
 
 .nav li {
-	float: left;
-	list-style-type: none;
-	position: relative;
-	margin: auto 1%;
-	display: inline-block;
+    float: left;
+    list-style-type: none;
+    position: relative;
+    margin: auto 1%;
+    display: inline-block;
 }
 
 .nav li a {
-	font-size: 16px;
-	color: white;
-	display: block;
-	line-height: 60px;
-	padding: 0 26px;
-	text-decoration: none;
-	font-family: 'Open Sans', sans-serif;
-	text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    color: white;
+    display: block;
+    line-height: 60px;
+    padding: 0 26px;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }
 .nav li a:hover {
-	background-color: rgba(178,93,56,1);
+    background-color: rgba(178,93,56,1);
 }
 
 #settings a {
-	padding: 18px;
-	height: 24px;
-	font-size: 10px;
-	line-height: 24px;
+    padding: 18px;
+    height: 24px;
+    font-size: 10px;
+    line-height: 24px;
 }
 
 li#search {
-	width: 45%;
-	height: 80%;
-	margin-left: 5%;
+    width: 45%;
+    height: 80%;
+    margin-left: 5%;
 }
 #search_text{
-	width: 85%;
-	padding: 10px 0 10px 20px;
-	font-size: 16px;
-	font-family: 'Open Sans', sans-serif;
-	border: 0 none;
-	height: 100%;
-	margin-right: 0;
-	color: white;
-	outline: none;
-	background: rgba(88, 52, 40, 0.69);
-	float: left;
-	box-sizing: border-box;
-	transition: all 0.15s;
+    width: 85%;
+    padding: 10px 0 10px 20px;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    border: 0 none;
+    height: 100%;
+    margin-right: 0;
+    color: white;
+    outline: none;
+    background: rgba(88, 52, 40, 0.69);
+    float: left;
+    box-sizing: border-box;
+    transition: all 0.15s;
 }
 ::-webkit-input-placeholder { /* WebKit browsers */
-	color: white;
+    color: white;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-	color: white;
+    color: white;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-	color: white;
+    color: white;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-	color: white;
+    color: white;
 }
 #search_text:focus,#search_button:hover{
-	background: rgba(88, 52, 40, 0.4);
+    background: rgba(88, 52, 40, 0.4);
 }
 #search_button {
-	border: 0 none;
-	background: rgba(88, 52, 40, 0.69) url(search.png) center no-repeat;
-	width: 15%;
-	float: left;
-	padding: 0;
-	text-align: center;
-	height: 100%;
-	cursor: pointer;
+    border: 0 none;
+    background: rgba(88, 52, 40, 0.69) url(search.png) center no-repeat;
+    width: 15%;
+    float: left;
+    padding: 0;
+    text-align: center;
+    height: 100%;
+    cursor: pointer;
 }
 
 #options a{
-	border-left: 0 none;
+    border-left: 0 none;
 }
 #options>a {
-	background-image: url(triangle.png);
-	background-position: 85% center;
-	background-repeat: no-repeat;
-	padding-right: 42px;
+    background-image: url(triangle.png);
+    background-position: 85% center;
+    background-repeat: no-repeat;
+    padding-right: 42px;
 }
 
 .subnav {
-	visibility: hidden;
-	position: absolute;
-	top: 110%;
-	right: 0;
-	width: auto;
-	height: auto;
-	opacity: 0;
-	transition: all 0.1s;
-	padding: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 110%;
+    right: 0;
+    width: auto;
+    height: auto;
+    opacity: 0;
+    transition: all 0.1s;
+    padding: 0;
 }
 .subnav li {
-	float: none;
-	width: 100%;
+    float: none;
+    width: 100%;
 }
 .subnav li a {
-	background: rgba(88, 52, 40, 1);
+    background: rgba(88, 52, 40, 1);
 }
 
 .subnav li a:hover {
-	border-bottom: 1px solid rgba(88, 52, 40, 0.4);
+    border-bottom: 1px solid rgba(88, 52, 40, 0.4);
 }
 #options:hover .subnav {
-	visibility: visible;
-	top: 100%;
-	opacity: 1;
+    visibility: visible;
+    top: 100%;
+    opacity: 1;
 }
 
 img#logo:hover {
@@ -248,7 +300,7 @@ li#profile {
     float: right;
 }
 li#options{
-	float:right;
+    float:right;
 }
 
 #search form {
@@ -283,26 +335,26 @@ i#editEvent {
     margin-right: 10%;
 }
 i#deleteEvent{
-	cursor:pointer;
+    cursor:pointer;
 }
 
 .modalDialog {
-	display:none;
-	position: fixed;
-	font-family: 'Open Sans', sans-serif;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background: rgba(0,0,0,0.7);
-	z-index: 99999;
-	transition: opacity 1500ms ease-in;
+    display:none;
+    position: fixed;
+    font-family: 'Open Sans', sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 99999;
+    transition: opacity 1500ms ease-in;
 }
 
 .modalDialog > div {
-	width: 400px;
-	position: relative;
-	margin: 10% auto;
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
 }
 
 .form label,.form label{
@@ -323,7 +375,7 @@ i#deleteEvent{
 }
 
 .form input:focus{
-	border: 1px solid #762E18;
+    border: 1px solid #762E18;
 }
 
 .form button {
@@ -345,7 +397,7 @@ i#deleteEvent{
 }
 
 .form button:hover{
-	background: #762E18;
+    background: #762E18;
 }
 
 div#selectOption {

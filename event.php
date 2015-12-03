@@ -7,7 +7,8 @@
 	}else if(!hasAccess($_GET["id"])){
 			echo "404";
 	}else{
-		$result=getEvent($_GET["id"]);?>
+		$result=getEvent($_GET["id"]);
+		$posts=getAllPosts($_GET["id"]);?>
 
 			<div class="cardEvent" id="event<?php echo $result['idEvent']?>">
 				<div id="contNameOptions">
@@ -33,6 +34,37 @@
 					</div>
 				</div>
 			</div>
+			<?php 
+			foreach ($posts as $post) {
+				$user=getUser2($post['idUser']);
+				$comments=getAllComments($post['idPost']);
+			?>
+
+			<div class="cardEvent" id="post">
+				<h4 id="user"><?php echo $user['name'] ?></h4>
+				<p id="info"><?php echo $post['info'] ?></p>
+				<?php 
+					foreach ($comments as $comment) {
+						$cmtUser=getUser2($comment['idUser']);
+				?>
+					<div class="cardEvent" id="comment">
+						<h4 id="user"><?php echo $cmtUser['name'] ?></h4>
+						<p id="info"><?php echo $comment['commentText'] ?></p>
+						<p id="date"><?php echo $comment['creationDate']?></p>
+					</div>
+				<?php } ?>
+				<div class="cardEvent" id="newCmt">
+					<form action="addComment.php?id=askas" method="get">
+						<input type="hidden" name="idEvent" value=<?php echo $_GET["id"]?> >
+						<input type="hidden" name="idPost" value=<?php echo $post['idPost']?>>
+						<input type="hidden" name="idUser" value=<?php echo $post['idUser']?>>
+						<textarea id="commentText" name="comment" rows="3" cols="85"></textarea>						
+						<button id="button" type="Submit" value="Send">Send</button>
+					</form>
+					
+				</div>
+			</div>
+			<?php } ?>
 
 
 			<div id="openModal" class="modalDialog">

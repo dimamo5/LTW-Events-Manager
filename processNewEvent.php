@@ -2,14 +2,13 @@
 session_start();
 include_once('databaseConnection.php');
 
-$target_dir = "static/event/".$_SESSION['userId'].'/';
-if(!is_dir($target_dir)){
-    mkdir($target_dir,0777,true);
-}
-$target_file = $target_dir . basename($_FILES["eventImage"]["name"]);
+var_dump($_FILES);
+die();
+
+$target_dir = "static/events";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -22,7 +21,7 @@ if(isset($_POST["submit"])) {
     }
 }
 
-if ($_FILES["eventImage"]["size"] > 500000) {
+if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
@@ -38,20 +37,22 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-    if (move_uploaded_file($_FILES["eventImage"]["tmp_name"], $target_file)) {
-        //echo "The file ". basename( $_FILES["eventImage"]["name"]). " has been uploaded.";
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
 }
 
-$photoId=addPhoto($target_file);
 
-if (isset($_POST["nameEvent"],$_POST["description"],$_POST["creationDate"],$_POST["hour"],$_POST["endDate"],$_POST["local"],$_POST["type"],$_POST["public"])) {
+
+
+
+
+if (isset($_POST["nameEvent"],$_POST["description"],$_POST["creationDate"],$_POST["endDate"],$_POST["local"],$_POST["type"],$_POST["public"])) {
 	$description=$_POST["nameEvent"];
 	$nameEvent=$_POST["description"];
 	$creationDate=$_POST["creationDate"];
-    $hour=$_POST["hour"];
 	$endDate=$_POST["endDate"];
 	$local=$_POST["local"];
 	$type=$_POST["type"];
@@ -63,10 +64,15 @@ if (isset($_POST["nameEvent"],$_POST["description"],$_POST["creationDate"],$_POS
 		$public=false;
 	}
     
-	$id=createEvent($description,$nameEvent,$creationDate,$hour,$endDate,$local,$type,$public,$photoId, $_SESSION['userId']);
+	$id=createEvent($description,$nameEvent,$creationDate,$endDate,$local,$type,$public, $_SESSION['userId']);
 	
-    rename($target_dir,"static/event/".$id.'/');
-    
-    header("Location:event.php?id=".$id);
+       if($id>0){
+		   echo json_encode(["create"=>$id]);
+	   }
+	   else{
+		   echo json_encode(["create"=>"failed"]);
+	   }
+} else {
+   echo json_encode(["create"=>"failessadasdd"]);
 }
 ?>
