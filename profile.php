@@ -1,38 +1,26 @@
 <?php 
 	require 'header.php';
+	
+	$result = getUser($_SESSION['userId']);
+	
+	$imagepath = getUserImagePath($_SESSION['userId']);	
 ?>
 
-<?php
-/*
-	if(!isset($_GET["id"]) ){
-			echo "404";
-	} else{
-	 $result = getUser($_GET["id"]); ?>	
-	}
-	*/
-		 
-?>
+<div class="User">
 
+	<div class="UserImage">
+		<img src= <?php echo $imagepath ?> style="width:256px;height:148px;">
+	</div>
+	
+	<div class="UserInfo">
+		<ul class="InfoList">
+		<li><h1><?php echo $result['name']?> </h1></li>
+		<li><h3><?php echo $result['birthday']?> </h3></li>
+		<li><h3><?php echo $result['email']?> </h3></li>
+		</ul>
+	</div>
 
-<!-- <img src="imagem" alt="imagemuser" style="width:256px;height:148px;"> -->
-
-
-<!-- verificar atributos -->
-
-<h1> 
-	<?php /* echo $result['name']*/ ?>
-</h1>
-
-<h3> 
-	<?php /*echo $result['data nascimento']*/  ?>	
-</h3>
-<h3> 
-	<?php /*echo $result['descricao']*/	  ?> 	
-</h3>
-
-<!-- ..... -->
-
-
+</div>
 
 
 <?php 

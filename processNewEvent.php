@@ -64,6 +64,8 @@ if (isset($_POST["nameEvent"],$_POST["description"],$_POST["creationDate"],$_POS
 	}
     
 	$id=createEvent($description,$nameEvent,$creationDate,$hour,$endDate,$local,$type,$public,$photoId, $_SESSION['userId']);
+	
+    rename($target_dir,"static/event/".$id.'/');
     
     header("Location:event.php?id=".$id);
 }

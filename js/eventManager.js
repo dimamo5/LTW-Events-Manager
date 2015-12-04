@@ -31,6 +31,7 @@ $(document).ready(function () {
 
 	$("#editEvent").click(function (e) {
 		$("#openModal").show();
+
 	});
 
 	$("form #cancel").click(function (e) {
@@ -44,8 +45,7 @@ $(document).ready(function () {
 
 	});
 
-
-	$('#save').click(function (e) {
+$('#save').click(function (e) {
 		e.preventDefault();
 		var nameEvent = $("#nameEvent").val();
 		var description = $("#description").val();
