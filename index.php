@@ -32,7 +32,7 @@
 			</div>
 				</div>
 				<div class="imgContainer">
-						<img src="static/user/userDefault.png"/>
+						<img src="<?php echo $adminEvent['path'];?>"/>
 				</div>
 			</div>				
 				
@@ -65,7 +65,7 @@
 			</div>
 				</div>
 				<div class="imgContainer">
-						<img src="static/user/userDefault.png"/>
+						<img src="<?php echo $invitedEvent['path'];?>" />
 				</div>
 			</div>			
 				

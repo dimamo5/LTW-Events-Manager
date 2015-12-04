@@ -70,7 +70,7 @@ function login_check()
 function getEventsInvited(){
     $db = new PDO('sqlite:event.db');
 
-    $stmt=$db->prepare("SELECT Event.* FROM UserEvent,Event WHERE UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent 
+    $stmt=$db->prepare("SELECT Event.*,Photo.path FROM UserEvent,Event,Photo WHERE UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent AND Event.idPhoto=Photo.idPhoto
                         AND UserEvent.idEvent NOT IN(SELECT Event.idEvent FROM Event WHERE Event.idOwner=:userId);");
    
     $stmt->bindParam(':userId',$_SESSION["userId"],PDO::PARAM_INT);
@@ -84,7 +84,7 @@ function getEvensAdmin(){
     
     $db = new PDO('sqlite:event.db');
 
-    $stmt=$db->prepare("SELECT Event.* FROM Event WHERE Event.idOwner=:userId");
+    $stmt=$db->prepare("SELECT Event.*,Photo.path FROM Event,Photo WHERE Event.idOwner=:userId AND Event.idPhoto=Photo.idPhoto");
     $stmt->bindParam(':userId',$_SESSION["userId"],PDO::PARAM_INT);
     
     $stmt->execute();  
@@ -108,6 +108,20 @@ function hasAccess($id){
 
     $stmt=$db->prepare("SELECT * FROM UserEvent WHERE idUser=:id AND idEvent=:idEvent");
     $stmt->bindParam(':id',$_SESSION["userId"],PDO::PARAM_INT);
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+    
+    $stmt->execute();  
+    $result = $stmt->fetchAll();
+    
+    if(count($result)>0){
+        return true;
+    }else return false;  
+}
+
+function isPublic($id){
+    $db = new PDO('sqlite:event.db');
+
+    $stmt=$db->prepare("SELECT * FROM Event WHERE idEvent=:idEvent AND public=1");
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
     
     $stmt->execute();  
@@ -311,7 +325,7 @@ function getEventSearch($string){
 }
 
 
-function createEvent($description,$nameEvent,$creationDate,$hour,$endDate,$local,$type,$public,$photoId,$ownerId){
+function createEvent($nameEvent,$description,$creationDate,$hour,$endDate,$local,$type,$public,$photoId,$ownerId){
     $db = new PDO('sqlite:event.db');
 
     $stmt=$db->prepare("INSERT INTO 
@@ -382,4 +396,61 @@ function addComment($idPost,$idUser,$comment){
 
     return "success";
 }
+
+function acceptInvite($eventId,$idUser){
+    $db = new PDO('sqlite:event.db');
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $stmt = $db->prepare("UPDATE UserEvent SET confirm=1 WHERE idEvent=:idEvent AND idUser=:idUser");
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_INT);
+    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_INT);
+    
+     $result=$stmt->execute();
+    
+     if($result>0){
+        return $result;
+    }else{
+         return false;
+    } 
+}
+
+function declineInvite($eventId,$idUser){
+    $db = new PDO('sqlite:event.db');
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $stmt = $db->prepare("UPDATE UserEvent SET confirm=-1 WHERE idEvent=:idEvent AND idUser=:idUser");
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_INT);
+    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_INT);
+    
+     $result=$stmt->execute();
+    
+     if($result>0){
+        return $result;
+    }else{
+         return false;
+    } 
+}
+
+function autoInvite($eventId,$idUser){
+    $db = new PDO('sqlite:event.db');
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $stmt = $db->prepare("INSERT INTO UserEvent(idEvent,idUser,confirm) VALUES(:idEvent,:idUser,1)");
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_INT);
+    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_INT);
+    
+     $result=$stmt->execute();
+    
+     if($result>0){
+        return $result;
+    }else{
+         return false;
+    }  
+}
+
+
+
 ?>

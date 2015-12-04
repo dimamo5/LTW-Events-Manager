@@ -156,6 +156,81 @@ $('#save').click(function (e) {
 			});
 	});
 	
+	$('#accept').click(function (e) {
+		e.preventDefault();
+
+		$.post("processInviteRequest.php",
+			{
+				'idEvent': parseInt(getUrlParameter("id")),
+				'request': 'accept'
+			},
+			function (data) {
+				var result = JSON.parse(data);
+				switch (result["invite"]) {
+					case "success":
+						location.reload();
+						break;
+					case "failed":
+						swal("Error in Request");
+						break;
+				}
+			}
+			)
+			.fail(function (error) {
+				console.log("erro!!!");
+			});
+	});
+	
+	$('#decline').click(function (e) {
+		e.preventDefault();
+
+		$.post("processInviteRequest.php",
+			{
+				'idEvent': parseInt(getUrlParameter("id")),
+				'request': 'decline'
+			},
+			function (data) {
+				var result = JSON.parse(data);
+				switch (result["invite"]) {
+					case "success":
+						location.reload();
+						break;
+					case "failed":
+						swal("Error in Request");
+						break;
+				}
+			}
+			)
+			.fail(function (error) {
+				console.log("erro!!!");
+			});
+	});
+	
+	$('#autoInvite').click(function (e) {
+		e.preventDefault();
+
+		$.post("processInviteRequest.php",
+			{
+				'idEvent': parseInt(getUrlParameter("id")),
+				'request': 'entry'
+			},
+			function (data) {
+				var result = JSON.parse(data);
+				switch (result["invite"]) {
+					case "success":
+						location.reload();
+						break;
+					case "failed":
+						swal("Error in Request");
+						break;
+				}
+			}
+			)
+			.fail(function (error) {
+				console.log("erro!!!");
+			});
+	});
+	
 	$('#listUser').on("click",' #sub',function (e) {
 		
 		var id=e.currentTarget.parentElement.id.split("user")[1];

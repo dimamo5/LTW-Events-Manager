@@ -11,6 +11,7 @@
 			<input id="description" name="description" type="text" placeholder="Description" required="">
 			<input id="creationDate" name="creationDate" type="date" placeholder="Start Date" required="">
 			<input id="endDate" name="endDate" type="date" placeholder="End Date" required="">
+			<input id="hour" name="hour" type="time" placeholder="Hour" required="">
 			<input id="local" name="local" type="text" placeholder="Place" required="">
 			<input id="type" name="type" type="text" placeholder="Type" required="">
 			<div id="choosePublic">

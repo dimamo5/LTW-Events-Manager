@@ -27,8 +27,8 @@ CREATE TABLE Event(
 );
 
 CREATE TABLE UserEvent(
-	idEvent INTEGER REFERENCES Event(idEvent),
-	idUser INTEGER REFERENCES User(idUser),
+	idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE,
+	idUser INTEGER REFERENCES User(idUser) ON DELETE CASCADE,
 	confirm INT DEFAULT 0,
 	PRIMARY KEY (idEvent,idUser),
 	CHECK(confirm>=-1 AND confirm <=1)
@@ -46,8 +46,8 @@ CREATE TABLE User(
 
 CREATE TABLE Comment (
 	idComment INTEGER PRIMARY KEY,
-	idPost INTEGER REFERENCES Post(idPost),
-	idUser INTEGER REFERENCES User(idUser),
+	idPost INTEGER REFERENCES Post(idPost) ON DELETE CASCADE,
+	idUser INTEGER REFERENCES User(idUser) ON DELETE CASCADE,
 	commentText TEXT NOT NULL,
 	creationDate DATE DEFAULT (date('now'))
 );
@@ -59,15 +59,15 @@ CREATE TABLE Photo(
 );
 
 CREATE TABLE EventPhoto(
-	idEvent INTEGER REFERENCES Event(idEvent),
-	idPhoto INTEGER REFERENCES Photo(idPhoto),
+	idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE,
+	idPhoto INTEGER REFERENCES Photo(idPhoto) ON DELETE CASCADE,
 	PRIMARY KEY (idEvent,idPhoto)
 );
 
 CREATE TABLE Post(
 	idPost INTEGER PRIMARY KEY,
-	idEvent INTEGER REFERENCES Event(idEvent),
-	idUser INTEGER REFERENCES User(idUser),
+	idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE,
+	idUser INTEGER REFERENCES User(idUser) ON DELETE CASCADE,
 	info TEXT
 );
 

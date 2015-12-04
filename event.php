@@ -4,7 +4,7 @@
 	
 	if(!isset($_GET["id"]) ){
 		echo "404";
-	}else if(!hasAccess($_GET["id"])){
+	}else if(!hasAccess($_GET["id"]) && !isPublic($_GET["id"])){
 			echo "404";
 	}else{
 		$result=getEvent($_GET["id"]);
@@ -38,10 +38,12 @@
 					<label id="editEvent"><i class="fa fa-pencil fa-2x"></i> Edit Event</label>
 					<label id="deleteEvent"><i class="fa fa-trash fa-2x"></i> Delete Event</label>
 				<?php }else if(goesEvent($_GET["id"],$_SESSION["userId"])){?>
-					<label id="addUser"><i class="fa fa-users fa-2x"></i> See User</label>
+					<label id="Users"><i class="fa fa-users fa-2x"></i> See User</label>
 				<?php }else if(hasAccess($_GET["id"])){?>
 					<label id="accept"><i class="fa fa-check fa-2x"></i> Accept</label>
 					<label id="decline"><i class="fa fa-times fa-2x"></i> Decline</label>
+				<?php }else if(isPublic($_GET["id"])){?>
+					<label id="autoInvite"><i class="fa fa-check fa-2x"></i> Want to go</label>
 				<?php } ?>
 				
 
