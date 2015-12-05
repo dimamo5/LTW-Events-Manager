@@ -56,8 +56,11 @@ if (isset($_POST["nameEvent"],$_POST["description"],$_POST["creationDate"],$_POS
 	}else{
 		$public=false;
 	}
+
+	$newFormat_creationDate = date('Y-m-d', strtotime($creationDate));
+	$newFormat_endDate = date('Y-m-d', strtotime($endDate));
     
-	$id=createEvent($nameEvent,$description,$creationDate,$hour,$endDate,$local,$type,$public,$photoId, $_SESSION['userId']);
+	$id=createEvent($nameEvent,$description,$newFormat_creationDate,$hour,$newFormat_endDate,$local,$type,$public,$photoId, $_SESSION['userId']);
     
     header("Location:event.php?id=".$id);
 }else{

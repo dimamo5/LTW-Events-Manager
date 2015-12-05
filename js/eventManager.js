@@ -31,7 +31,6 @@ $(document).ready(function () {
 
 	$("#editEvent").click(function (e) {
 		$("#openModal").show();
-
 	});
 
 	$("form #cancel").click(function (e) {
@@ -42,8 +41,14 @@ $(document).ready(function () {
 
 	$("#addUser").click(function (e) {
 		$("#inviteUser").show();
-
 	});
+
+	 $("body").on('keyup', function (e) {
+		e.preventDefault();
+		if ( e.keyCode === 27 ) {	
+        $(".modalDialog").hide();
+   	 	}
+    });	
 
 $('#save').click(function (e) {
 		e.preventDefault();

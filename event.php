@@ -53,7 +53,7 @@
 	</div>
 
 
-	<div id="openModal" class="modalDialog">
+	<div id="openModal" class="modalDialog" >
 		<div class="form">
 			<form id="editEvent" method="post">
 				<h2>Edit Event</h2>
@@ -61,6 +61,7 @@
 				<input id="description" name="description" type="text" value="<?php echo $result["description"]?>" required="">
 				<input id="creationDate" name="creationDate" type="date" value="<?php echo $result["creationDate"]?>" required="">
 				<input id="endDate" name="endDate" type="date" value="<?php echo $result["endDate"]?>" required="">
+				<input id="hour" name="hour" type="time" value="<?php echo $result["hour"]?>" placeholder="Hour" required="">
 				<input id="local" name="local" type="text" value="<?php echo $result["local"]?>" required="">
 				<input id="type" name="type" type="text" value="<?php echo $result["type"]?>" required="">
 				<div id="selectOption">
