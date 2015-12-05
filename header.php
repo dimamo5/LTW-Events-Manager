@@ -46,8 +46,6 @@
 				<li id="options">
 					<a href="#">Options  <i class="fa fa-arrow-down"></i></a>
 					<ul class="subnav">
-						<li><a href="#">Settings</a></li>
-						<li><a href="#">Application</a></li>
 						<li><a href="newEvent.php">New Event</a></li>
 						<li><a href="logout.php">Logout</a></li>
 					</ul>

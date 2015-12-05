@@ -1,43 +1,28 @@
 <?php
 	
-	require_once('header.php');
+	include_once('header.php');
+	include_once('utils.php');
+	
 	if(!isset($_GET["id"]) ){
 		echo "404";
 	}else if(!hasAccess($_GET["id"]) && !isPublic($_GET["id"])){
 			echo "404";
 	}else{
 		$result=getEvent($_GET["id"]);
-		$posts=getAllPosts($_GET["id"]);?>
-
-	<div class="cardEventPage" id="event<?php echo $result['idEvent']?>">
-		<div class="imgContainerPage">
-			<img src="<?php echo $result["path"]?>" />
-		</div>
-		<div class="eventInfo">
-			<div class="eventInfoContent">
-				<div class="name">
-					<h1><?php echo $result['nameEvent']?></h1> <?php if($result["public"]){echo "<i class=\"fa fa-unlock fa-2x\"></i>";}else{echo "<i class=\"fa fa-lock fa-2x\"></i>";}?>
-				</div>
-			<div>
-				<p>
-					<?php echo $result['description'] ?>
-				</p>
-				<p>
-					<i class="fa fa-calendar fa-lg"></i> <?php echo $result['creationDate']." ".$result["hour"]."  <i class=\"fa fa-arrow-right fa-lg\"></i>  ".$result['endDate'] ?>
-				</p>
-				<p>
-					<i class="fa fa-map-marker fa-lg"></i> <?php echo $result['local'];?>
-				</p>
-			</div>
-		</div>
+		$posts=getAllPosts($_GET["id"]);
+		
+		getEventPageCard($result);
+		?>
 
 		<div class="options">
 				<?php if(isAdmin($_GET["id"],$_SESSION["userId"])){?>
 					<label id="addUser"><i class="fa fa-users fa-2x"></i> Edit User</label>
 					<label id="editEvent"><i class="fa fa-pencil fa-2x"></i> Edit Event</label>
 					<label id="deleteEvent"><i class="fa fa-trash fa-2x"></i> Delete Event</label>
+					<label id="addPhoto"><i class="fa fa-picture-o fa-2x"></i> Add Photo</label>
 				<?php }else if(goesEvent($_GET["id"],$_SESSION["userId"])){?>
 					<label id="Users"><i class="fa fa-users fa-2x"></i> See User</label>
+					<label id="seePhotos"><i class="fa fa-picture-o fa-2x"></i> See Photos</label>
 				<?php }else if(hasAccess($_GET["id"])){?>
 					<label id="accept"><i class="fa fa-check fa-2x"></i> Accept</label>
 					<label id="decline"><i class="fa fa-times fa-2x"></i> Decline</label>
@@ -45,7 +30,6 @@
 					<label id="autoInvite"><i class="fa fa-check fa-2x"></i> Want to go</label>
 				<?php } ?>
 				
-
 			</div>
 		</div>
 		
@@ -54,69 +38,12 @@
 	<?php
 
 	if(isAdmin($_GET["id"],$_SESSION["userId"])){
- 	?>
-	 
-	<div id="openModal" class="modalDialog">
-		<div class="form">
-			<form id="editEvent" method="post">
-				<h2>Edit Event</h2>
-				<input id="nameEvent" name="nameEvent" type="text" value="<?php echo $result["nameEvent"]?>" required="" autofocus="">
-				<input id="description" name="description" type="text" value="<?php echo $result["description"]?>" required="">
-				<input id="creationDate" name="creationDate" type="date" value="<?php echo $result["creationDate"]?>" required="">
-				<input id="endDate" name="endDate" type="date" value="<?php echo $result["endDate"]?>" required="">
-				<input id="local" name="local" type="text" value="<?php echo $result["local"]?>" required="">
-				<input id="type" name="type" type="text" value="<?php echo $result["type"]?>" required="">
-				<div id="selectOption">
-					<button id="save" type="submit">Save</button>
-					<button id="cancel">Cancel</button>
-
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<div id="inviteUser" class="modalDialog">
-		<div id="inviteUserModal" class="form">
-			<form id="inviteUserForm">
-				<input type="text" name="search_text" id="searchUser" placeholder="Search" />
-			</form>
-
-			<ul id="listUser">
-				<?php
-								$users=getUsersEvent($_GET['id']);
-								foreach($users as $user){?>
-					<li id="user<?php echo $user['idUser']?>" class="listUsers">
-						<div id="name"><?php echo $user['name']?></div>
-						<div id="sub">
-							<i class="fa fa-minus fa-lg"></i>
-						</div>
-					</li>
-
-					<?php }?>
-
-			</ul>
-		</div>
-	</div>
-	
-	<?php }else if(goesEvent($_GET["id"],$_SESSION["userId"])){?>
-		<div id="listUsers" class="modalDialog">
-		<div class="form">
-			<h2>List of Invites</h2>
-			<ul id="listUser">
-				<?php
-					$users=getUsersEvent($_GET['id']);
-					foreach($users as $user){?>
-					<li id="user<?php echo $user['idUser']?>" class="listUsers">
-						<div id="name"><?php echo $user['name']?></div>
-						<?php if($user["confirm"]==0){echo"<i class=\"fa fa-question fa-2x\"></i>To Respond";}else if($user["confirm"]==1){echo"<i class=\"fa fa-check fa-2x\"></i>Going";}
-					else if($user["confirm"]==-1){echo"<i class=\"fa fa-times fa-2x\"></i>Not Going";}?></span>
-					</li>
-					
-					<?php }?>
-			</ul>
-		</div>
-	</div>
-	<?php } ?>
+		editEventModal($result);
+		inviteUserModal($_GET["id"]);
+		addPhotoModal($_GET["id"]);
+	 }else if(goesEvent($_GET["id"],$_SESSION["userId"])){
+		listUsersModal($_GET["id"]);
+	} ?>
 	
 	<?php 
 			foreach ($posts as $post) {
@@ -151,5 +78,5 @@
 			<?php } ?>
 	<?php } 
 						
-			require_once('footer.php');
+			include_once('footer.php');
 			?>
