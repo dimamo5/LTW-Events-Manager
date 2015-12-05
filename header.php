@@ -40,14 +40,12 @@
 				<li id="search">
 					<form action="eventSearchPage.php" method="get">
 						<input type="text" name="search_text" id="search_text" placeholder="Search" />
-						<button type="submit" name="search_button" id="search_button"><i class="fa fa-search"></i></button>
+						<button type="submit" id="search_button"><i class="fa fa-search"></i></button>
 					</form>
 				</li>
 				<li id="options">
 					<a href="#">Options  <i class="fa fa-arrow-down"></i></a>
 					<ul class="subnav">
-						<li><a href="#">Settings</a></li>
-						<li><a href="#">Application</a></li>
 						<li><a href="newEvent.php">New Event</a></li>
 						<li><a href="logout.php">Logout</a></li>
 					</ul>

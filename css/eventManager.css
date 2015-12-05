@@ -246,18 +246,13 @@ li#search {
 }
 #search_button {
     border: 0 none;
-    background: rgba(88, 52, 40, 0.69) url(search.png) center no-repeat;
+    background: rgba(88, 52, 40, 0.69) center no-repeat;
     width: 15%;
     float: left;
     padding: 0;
     text-align: center;
     height: 100%;
     cursor: pointer;
-}
-
-#options a{
-}
-#options>a {
 }
 
 .subnav {
@@ -277,6 +272,7 @@ li#search {
 }
 .subnav li a {
     background: rgba(88, 52, 40, 1);
+    padding: 0;
 }
 
 .subnav li a:hover {
@@ -298,6 +294,7 @@ li#profile {
 }
 li#options{
     float:right;
+    padding: 0;
 }
 
 #search form {
@@ -648,7 +645,45 @@ list-style-type: none;/* margin-left: 0; *//* margin-right: 0; */width: 100%;hei
     width: 50%;
 }
 
-.profileButton:hover {}
+
+span.statusInvite {margin-left: 2rem;}
+
+.footer {
+    background: #ffab62;
+    border-top: 1px solid #ff4b02;
+    color: #333;
+    text-shadow: 1px 1px 0 rgba(255,255,255,0.6);
+}
+.footer {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+table.gridtable {
+    width: 100%;
+}
+
+.gridtable img {
+    width: 100%;
+}
+
+
+td {
+    width: 33%;
+}
+
+button #close {
+    width: 100%;
+    margin: 0 auto;
+}
+
+button#close {
+    width: 100%;
+    margin: 0 auto;
+}
 
 .profileButton:hover {
     background-color: rgba(178,93,56,1);

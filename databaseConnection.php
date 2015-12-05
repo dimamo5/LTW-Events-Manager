@@ -1,12 +1,17 @@
 <?php
+
+
 function login($username, $password)
 {  
-    $db = new PDO('sqlite:event.db');
-    $query = "SELECT * FROM User WHERE loginId='";
-    $query .= $username . "';";
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
        
-    $stmt = $db->prepare($query);
-    $stmt->execute();  
+    $stmt=$db->prepare("SELECT * FROM User WHERE loginId=:username");
+    $stmt->bindParam(':username',$username,PDO::PARAM_STR);
+    $stmt->execute();    
+       
     $result = $stmt->fetchAll();
     if(count($result)==0){
         return false;
@@ -26,8 +31,8 @@ function login($username, $password)
 }
 
 function register($username,$password,$email,$name,$birthdate){
-    $db = new PDO('sqlite:event.db');
-    
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $stmt=$db->prepare("SELECT * FROM User WHERE loginId=:username");
     $stmt->bindParam(':username',$username,PDO::PARAM_STR);
     $stmt->execute(); 
@@ -68,9 +73,12 @@ function login_check()
 }
 
 function getEventsInvited(){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt=$db->prepare("SELECT Event.*,Photo.path FROM UserEvent,Event,Photo WHERE UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent AND Event.idPhoto=Photo.idPhoto
+    $stmt=$db->prepare("SELECT Event.*,Photo.path,UserEvent.confirm FROM UserEvent,Event,Photo WHERE UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent AND Event.idPhoto=Photo.idPhoto
                         AND UserEvent.idEvent NOT IN(SELECT Event.idEvent FROM Event WHERE Event.idOwner=:userId);");
    
     $stmt->bindParam(':userId',$_SESSION["userId"],PDO::PARAM_INT);
@@ -81,8 +89,8 @@ function getEventsInvited(){
 }
 
 function getEvensAdmin(){
-    
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT Event.*,Photo.path FROM Event,Photo WHERE Event.idOwner=:userId AND Event.idPhoto=Photo.idPhoto");
     $stmt->bindParam(':userId',$_SESSION["userId"],PDO::PARAM_INT);
@@ -93,7 +101,8 @@ function getEvensAdmin(){
 }
 
 function getEvent($id){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT Event.*,Photo.path FROM Event,Photo WHERE Event.idEvent=:id AND Event.idPhoto=Photo.idPhoto");
     $stmt->bindParam(':id',$id,PDO::PARAM_INT);
@@ -104,7 +113,8 @@ function getEvent($id){
 }
 
 function hasAccess($id){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT * FROM UserEvent WHERE idUser=:id AND idEvent=:idEvent");
     $stmt->bindParam(':id',$_SESSION["userId"],PDO::PARAM_INT);
@@ -119,7 +129,8 @@ function hasAccess($id){
 }
 
 function isPublic($id){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT * FROM Event WHERE idEvent=:idEvent AND public=1");
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
@@ -133,7 +144,8 @@ function isPublic($id){
 }
 
 function goesEvent($idEvent,$idUser){
-     $db = new PDO('sqlite:event.db');
+     $pathDatabase='sqlite:'.__DIR__.'/event.db';
+     $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT * FROM UserEvent WHERE idUser=:idUser AND idEvent=:idEvent AND confirm=1");
     $stmt->bindParam(':idUser',$_SESSION["userId"],PDO::PARAM_INT);
@@ -148,7 +160,8 @@ function goesEvent($idEvent,$idUser){
 }
 
 function isAdmin($idEvent,$idAdmin){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT * FROM Event WHERE idOwner=:idAdmin AND idEvent=:idEvent;");
     $stmt->bindParam(':idAdmin',$idAdmin,PDO::PARAM_INT);
@@ -163,7 +176,8 @@ function isAdmin($idEvent,$idAdmin){
 }
 
 function deleteEvent($id){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("DELETE FROM Event WHERE idEvent=:idEvent;");
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
@@ -174,13 +188,25 @@ function deleteEvent($id){
         $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
         $result2=$stmt2->execute();
         if($result2>0){
-            return true;
+            $stmt2=$db->prepare("DELETE FROM UserEvent WHERE idEvent=:idEvent");
+            $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
+            $result2=$stmt2->execute();
         }
+        
+        $stmt2=$db->prepare("DELETE FROM Photo WHERE idPhoto=:idEvent");
+        $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
+        $result2=$stmt2->execute();
+        
+        
+        
+        
+        
     }
 }
 
 function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$type){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("UPDATE Event SET nameEvent=:nameEvent,description=:description,creationDate=:creationDate,endDate=:endDate,local=:local,type=:type WHERE idEvent=:idEvent");
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
@@ -200,7 +226,8 @@ function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$ty
 }
 
 function getUsers(){
-     $db = new PDO('sqlite:event.db');
+     $pathDatabase='sqlite:'.__DIR__.'/event.db';
+     $db = new PDO($pathDatabase);
      $stmt=$db->prepare("SELECT User.idUser,User.name FROM User;");
      $stmt->execute();  
      $result = $stmt->fetchAll();
@@ -210,7 +237,8 @@ function getUsers(){
 }
 
 function getUser($userId){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $stmt=$db->prepare("SELECT * FROM User WHERE User.idUser=:userid");
     $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
     
@@ -222,7 +250,8 @@ function getUser($userId){
     }else return false;    
 }
 function getUserEventName($name,$eventId){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $name="%".$name."%";
 
@@ -236,7 +265,8 @@ function getUserEventName($name,$eventId){
 }
 
 function addUser($eventId,$idUser){
-     $db = new PDO('sqlite:event.db');
+     $pathDatabase='sqlite:'.__DIR__.'/event.db';
+     $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("INSERT INTO UserEvent(idUser,idEvent,confirm) VALUES(:idUser,:idEvent,0)");
     $stmt->bindParam(':idUser',$idUser,PDO::PARAM_STR);
@@ -250,7 +280,8 @@ function addUser($eventId,$idUser){
 }
 
 function removeUser($eventId,$idUser){
-     $db = new PDO('sqlite:event.db');
+     $pathDatabase='sqlite:'.__DIR__.'/event.db';
+     $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("DELETE FROM UserEvent WHERE idUser=:idUser,idEvent=:idEvent)");
     $stmt->bindParam(':idUser',$idUser,PDO::PARAM_STR);
@@ -264,7 +295,8 @@ function removeUser($eventId,$idUser){
 }
 
 function getUserImagePath($userId){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $stmt=$db->prepare("SELECT Photo.path FROM Photo,User WHERE Photo.idPhoto=User.idPhoto AND User.idUser=:userid");
     $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
     
@@ -277,7 +309,8 @@ function getUserImagePath($userId){
 }
  
 function getUser2($userId){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $stmt=$db->prepare("SELECT * FROM User WHERE idUser=:userid;");
     $stmt->bindParam(':userid',$userId,PDO::PARAM_INT);
     
@@ -288,9 +321,10 @@ function getUser2($userId){
 
 
 function getUsersEvent($eventId){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
-    $stmt=$db->prepare("SELECT User.idUser,User.name FROM User,UserEvent WHERE idEvent=:eventId AND User.idUser=UserEvent.idUser;");
+    $stmt=$db->prepare("SELECT User.idUser,User.name,UserEvent.confirm FROM User,UserEvent WHERE idEvent=:eventId AND User.idUser=UserEvent.idUser;");
     $stmt->bindParam(':eventId',$eventId,PDO::PARAM_INT);
     
     $stmt->execute(); 
@@ -304,12 +338,13 @@ function getUsersEvent($eventId){
 }
 
 function getEventSearch($string){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $string = "%".$string."%"; 
 
-    $stmt=$db->prepare("SELECT Event.* FROM Event,User,UserEvent WHERE User.idUser=:userId AND UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent AND Event.nameEvent LIKE :search
-                        UNION SELECT Event.* FROM Event WHERE Event.public=1 AND Event.nameEvent LIKE :search GROUP BY Event.idEvent;");
+    $stmt=$db->prepare("SELECT Event.*,Photo.path AS path FROM Event,User,UserEvent,Photo WHERE User.idUser=:userId AND UserEvent.idUser=:userId AND Event.idPhoto=Photo.idPhoto AND Event.idEvent=UserEvent.idEvent AND Event.nameEvent LIKE :search
+                        UNION SELECT Event.*,Photo.path AS path FROM Event,Photo WHERE Event.public=1 AND Event.idPhoto=Photo.idPhoto AND Event.nameEvent LIKE :search GROUP BY Event.idEvent;");
    
     $stmt->bindParam(':search',$string, PDO::PARAM_STR);
     $stmt->bindParam(':userId',$_SESSION['userId'], PDO::PARAM_INT);
@@ -326,7 +361,8 @@ function getEventSearch($string){
 
 
 function createEvent($nameEvent,$description,$creationDate,$hour,$endDate,$local,$type,$public,$photoId,$ownerId){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("INSERT INTO 
     Event(nameEvent,creationDate,endDate,local,public,type,description,hour,idPhoto,idOwner)
@@ -349,7 +385,8 @@ function createEvent($nameEvent,$description,$creationDate,$hour,$endDate,$local
 }
 
 function addPhoto($path){
-     $db = new PDO('sqlite:event.db');
+     $pathDatabase='sqlite:'.__DIR__.'/event.db';
+     $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("INSERT INTO Photo(path,uploadDate)
     VALUES(:path,date('now'))");
@@ -361,8 +398,26 @@ function addPhoto($path){
     return $lastId;
 }
 
+function addPhotoEvent($eventId,$photoId){
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+     $db = new PDO($pathDatabase);
+
+    $stmt=$db->prepare("INSERT INTO EventPhoto VALUES(:eventId,:photoId)");
+    $stmt->bindParam(':eventId',$eventId,PDO::PARAM_INT);
+    $stmt->bindParam(':photoId',$photoId,PDO::PARAM_INT);
+        
+    $result=$stmt->execute();  
+    
+     if($result>0){
+        return $result;
+    }else{
+         return false;
+    } 
+}
+
 function getAllPosts($id){
-     $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT * FROM Post WHERE idEvent=:id");
     $stmt->bindParam(':id',$id,PDO::PARAM_INT);
@@ -373,7 +428,8 @@ function getAllPosts($id){
 }
 
 function getAllComments($id){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("SELECT * FROM Comment WHERE idPost=:id");
     $stmt->bindParam(':id',$id,PDO::PARAM_INT);
@@ -384,7 +440,8 @@ function getAllComments($id){
 }
 
 function addComment($idPost,$idUser,$comment){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $stmt = $db->prepare("INSERT INTO Comment(idPost,idUser,commentText) VALUES(:idPost,:idUser,:comment)");
@@ -398,7 +455,8 @@ function addComment($idPost,$idUser,$comment){
 }
 
 function acceptInvite($eventId,$idUser){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -416,7 +474,8 @@ function acceptInvite($eventId,$idUser){
 }
 
 function declineInvite($eventId,$idUser){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -434,7 +493,8 @@ function declineInvite($eventId,$idUser){
 }
 
 function autoInvite($eventId,$idUser){
-    $db = new PDO('sqlite:event.db');
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -449,6 +509,20 @@ function autoInvite($eventId,$idUser){
     }else{
          return false;
     }  
+}
+
+function getPhotoPath($eventId){
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $stmt = $db->prepare("SELECT Photo.path FROM Photo,EventPhoto WHERE Photo.idPhoto=EventPhoto.idPhoto AND idEvent=:idEvent");
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_INT);
+    $stmt->execute();
+    $result=$stmt->fetchAll();
+    
+    return $result;
 }
 
 

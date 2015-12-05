@@ -22,7 +22,7 @@ CREATE TABLE Event(
 	type TEXT,
 	description TEXT,
 	hour TEXT,
-	idPhoto INTEGER REFERENCES Photo(idPhoto),
+	idPhoto INTEGER REFERENCES Photo(idPhoto) DEFAULT 1,
 	idOwner INTEGER REFERENCES User(idUser)
 );
 
