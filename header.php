@@ -40,7 +40,7 @@
 				<li id="search">
 					<form action="eventSearchPage.php" method="get">
 						<input type="text" name="search_text" id="search_text" placeholder="Search" />
-						<button type="submit" name="search_button" id="search_button"><i class="fa fa-search"></i></button>
+						<button type="submit" id="search_button"><i class="fa fa-search"></i></button>
 					</form>
 				</li>
 				<li id="options">

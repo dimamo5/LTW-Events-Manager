@@ -188,8 +188,19 @@ function deleteEvent($id){
         $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
         $result2=$stmt2->execute();
         if($result2>0){
-            return true;
+            $stmt2=$db->prepare("DELETE FROM UserEvent WHERE idEvent=:idEvent");
+            $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
+            $result2=$stmt2->execute();
         }
+        
+        $stmt2=$db->prepare("DELETE FROM Photo WHERE idPhoto=:idEvent");
+        $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
+        $result2=$stmt2->execute();
+        
+        
+        
+        
+        
     }
 }
 
@@ -332,8 +343,8 @@ function getEventSearch($string){
 
     $string = "%".$string."%"; 
 
-    $stmt=$db->prepare("SELECT Event.* FROM Event,User,UserEvent WHERE User.idUser=:userId AND UserEvent.idUser=:userId AND Event.idEvent=UserEvent.idEvent AND Event.nameEvent LIKE :search
-                        UNION SELECT Event.* FROM Event WHERE Event.public=1 AND Event.nameEvent LIKE :search GROUP BY Event.idEvent;");
+    $stmt=$db->prepare("SELECT Event.*,Photo.path AS path FROM Event,User,UserEvent,Photo WHERE User.idUser=:userId AND UserEvent.idUser=:userId AND Event.idPhoto=Photo.idPhoto AND Event.idEvent=UserEvent.idEvent AND Event.nameEvent LIKE :search
+                        UNION SELECT Event.*,Photo.path AS path FROM Event,Photo WHERE Event.public=1 AND Event.idPhoto=Photo.idPhoto AND Event.nameEvent LIKE :search GROUP BY Event.idEvent;");
    
     $stmt->bindParam(':search',$string, PDO::PARAM_STR);
     $stmt->bindParam(':userId',$_SESSION['userId'], PDO::PARAM_INT);
