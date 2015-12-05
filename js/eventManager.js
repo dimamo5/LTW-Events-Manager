@@ -61,6 +61,17 @@ $(document).ready(function() {
     
     });
     
+    $("#seePhotos").click(function(e) {
+        $("#viewPhotos").show();
+    
+    });
+    
+    $("button#close").click(function(e) {
+        e.preventDefault()
+        $("#viewPhotos").hide();
+    
+    })
+    
     $('#save').click(function(e) {
         e.preventDefault();
         var nameEvent = $("#nameEvent").val();
@@ -278,18 +289,20 @@ $(document).ready(function() {
     
     
     $('#addPhotoForm').submit(function(e) {
+        e.preventDefault();
         
-        var filedata = $("form#addPhotoForm #eventPhoto")[0];     
-        formData = new FormData();
+        var filedata = $("form#addPhotoForm #eventPhoto")[0];
+        formData = new FormData(this);
         
         var i = 0
-          , len = filedata.files.length;
+          
+        , len = filedata.files.length;
         
         for (var i = 0; i < len; i++) {
             var file = filedata.files[i];
-                formData.append("file"+i, file);
+            formData.append("file" + i, file);
         }
-        
+        formData.append('nrfiles', filedata.files.length);
         formData.append('eventId', parseInt(getUrlParameter("id")));
         
         
@@ -300,10 +313,18 @@ $(document).ready(function() {
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response);
+                var data=JSON.parse(response);
+                if(data["fileuload"]!="success"){
+                  console.log(data["fileupload"]); 
+           
+                }
             },
             error: function(errResponse) {
                 console.log(errResponse);
+            },
+            complete: function() 
+            {
+                location.reload();
             }
         });
     });

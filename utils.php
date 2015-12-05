@@ -150,3 +150,36 @@ function addPhotoModal($event){
     </div>
     </div>
 <?php } ?>
+
+<?php
+function viewPhotos($event){ 
+    $photos=getPhotoPath($event);
+    $size=count($photos);
+    $coluns=ceil($size/3);
+    $counter=0;
+    ?>
+    
+    <div id="viewPhotos" class="modalDialog">
+    <div class="form">
+   <table class="gridtable">
+  <?php for($i=0;$i<$coluns;$i++){
+      echo "<tr>";
+        for($j=0;$j<3;$j++){
+            
+            echo "<td>";
+            if($counter<$size)
+            echo "<img src=\"".$photos[$counter]["path"]."\">";
+            echo "</td>";
+            $counter++;
+        }     
+      
+      echo "</tr>";
+  }
+  
+  
+  ?>
+</table>
+    <button id="close">Close</button>
+    </div>
+    </div>
+<?php } ?>

@@ -19,7 +19,8 @@
 					<label id="addUser"><i class="fa fa-users fa-2x"></i> Edit User</label>
 					<label id="editEvent"><i class="fa fa-pencil fa-2x"></i> Edit Event</label>
 					<label id="deleteEvent"><i class="fa fa-trash fa-2x"></i> Delete Event</label>
-					<label id="addPhoto"><i class="fa fa-picture-o fa-2x"></i> Add Photo</label>
+					<label id="addPhoto"><i class="fa fa-camera fa-2x"></i> Add Photo</label>
+					<label id="seePhotos"><i class="fa fa-picture-o fa-2x"></i> See Photos</label>
 				<?php }else if(goesEvent($_GET["id"],$_SESSION["userId"])){?>
 					<label id="Users"><i class="fa fa-users fa-2x"></i> See User</label>
 					<label id="seePhotos"><i class="fa fa-picture-o fa-2x"></i> See Photos</label>
@@ -41,8 +42,10 @@
 		editEventModal($result);
 		inviteUserModal($_GET["id"]);
 		addPhotoModal($_GET["id"]);
+		viewPhotos($_GET["id"]);
 	 }else if(goesEvent($_GET["id"],$_SESSION["userId"])){
 		listUsersModal($_GET["id"]);
+		viewPhotos($_GET["id"]);
 	} ?>
 	
 	<?php 

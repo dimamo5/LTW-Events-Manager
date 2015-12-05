@@ -387,6 +387,23 @@ function addPhoto($path){
     return $lastId;
 }
 
+function addPhotoEvent($eventId,$photoId){
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+     $db = new PDO($pathDatabase);
+
+    $stmt=$db->prepare("INSERT INTO EventPhoto VALUES(:eventId,:photoId)");
+    $stmt->bindParam(':eventId',$eventId,PDO::PARAM_INT);
+    $stmt->bindParam(':photoId',$photoId,PDO::PARAM_INT);
+        
+    $result=$stmt->execute();  
+    
+     if($result>0){
+        return $result;
+    }else{
+         return false;
+    } 
+}
+
 function getAllPosts($id){
     $pathDatabase='sqlite:'.__DIR__.'/event.db';
     $db = new PDO($pathDatabase);
@@ -481,6 +498,20 @@ function autoInvite($eventId,$idUser){
     }else{
          return false;
     }  
+}
+
+function getPhotoPath($eventId){
+    $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO($pathDatabase);
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $stmt = $db->prepare("SELECT Photo.path FROM Photo,EventPhoto WHERE Photo.idPhoto=EventPhoto.idPhoto AND idEvent=:idEvent");
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_INT);
+    $stmt->execute();
+    $result=$stmt->fetchAll();
+    
+    return $result;
 }
 
 
