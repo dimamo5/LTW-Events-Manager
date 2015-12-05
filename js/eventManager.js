@@ -70,7 +70,14 @@ $(document).ready(function() {
         e.preventDefault()
         $("#viewPhotos").hide();
     
-    })
+    });
+        
+	$("body").on('keyup', function (e) {
+		e.preventDefault();
+		if ( e.keyCode === 27 ) {	
+        $(".modalDialog").hide();
+   	 	}
+    });	
     
     $('#save').click(function(e) {
         e.preventDefault();
