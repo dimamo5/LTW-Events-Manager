@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 	$("#deleteEvent").click(function () {
 		swal({ title: "Are you sure?", type: "warning", showCancelButton: true, closeOnConfirm: false, showLoaderOnConfirm: true, }, function () {
-			$.ajax("processDelete.php",
+			$.ajax("process/delete.php",
 				{
 					type: "POST",
 					data: "eventId=" + parseInt(getUrlParameter("id")),
@@ -44,6 +44,11 @@ $(document).ready(function () {
 		$("#inviteUser").show();
 
 	});
+	
+	$("#Users").click(function (e) {
+		$("#listUsers").show();
+
+	});
 
 $('#save').click(function (e) {
 		e.preventDefault();
@@ -54,7 +59,7 @@ $('#save').click(function (e) {
 		var local = $("#local").val();
 		var type = $("#type").val();
 
-		$.post("processEdit.php",
+		$.post("process/edit.php",
 			{
 				'idEvent': parseInt(getUrlParameter("id")),
 				'nameEvent': nameEvent,
@@ -87,7 +92,7 @@ $('#save').click(function (e) {
 		e.preventDefault();
 		var search = $("#searchUser").val();
 
-		$.post("processGetUsers.php",
+		$.post("process/getUsers.php",
 			{
 				'username': search,
 				'eventId': parseInt(getUrlParameter("id"))
@@ -132,7 +137,7 @@ $('#save').click(function (e) {
 		
 		var id=e.currentTarget.parentElement.id.split("user")[1];
 		
-		$.post("processEditUser.php",
+		$.post("process/editUser.php",
 			{
 				'idUser': id,
 				'type':'add',
@@ -159,7 +164,7 @@ $('#save').click(function (e) {
 	$('#accept').click(function (e) {
 		e.preventDefault();
 
-		$.post("processInviteRequest.php",
+		$.post("process/inviteRequest.php",
 			{
 				'idEvent': parseInt(getUrlParameter("id")),
 				'request': 'accept'
@@ -184,7 +189,7 @@ $('#save').click(function (e) {
 	$('#decline').click(function (e) {
 		e.preventDefault();
 
-		$.post("processInviteRequest.php",
+		$.post("process/inviteRequest.php",
 			{
 				'idEvent': parseInt(getUrlParameter("id")),
 				'request': 'decline'
@@ -209,7 +214,7 @@ $('#save').click(function (e) {
 	$('#autoInvite').click(function (e) {
 		e.preventDefault();
 
-		$.post("processInviteRequest.php",
+		$.post("process/inviteRequest.php",
 			{
 				'idEvent': parseInt(getUrlParameter("id")),
 				'request': 'entry'
@@ -235,7 +240,7 @@ $('#save').click(function (e) {
 		
 		var id=e.currentTarget.parentElement.id.split("user")[1];
 		
-		$.post("processEditUser.php",
+		$.post("process/editUser.php",
 			{
 				'idUser': id,
 				'type':'sub',

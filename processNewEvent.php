@@ -39,7 +39,7 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
-$photoId=addPhoto($target_file);
+$photoId=addPhoto(htmlspecialchars($target_file));
 
 if (isset($_POST["nameEvent"],$_POST["description"],$_POST["creationDate"],$_POST["hour"],$_POST["endDate"],$_POST["local"],$_POST["type"],$_POST["public"])) {
 	$nameEvent=$_POST["nameEvent"];

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once('databaseConnection.php');
+include_once('../databaseConnection.php');
 
 if (isset($_POST["idEvent"],$_POST["nameEvent"],$_POST["description"],$_POST["creationDate"],$_POST["endDate"],$_POST["local"],$_POST["type"])) {
 	$eventId=htmlspecialchars($_POST["idEvent"]);

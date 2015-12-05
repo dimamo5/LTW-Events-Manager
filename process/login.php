@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once('databaseConnection.php');
+include_once('../databaseConnection.php');
 
 if (isset($_POST["username"], $_POST["password"])) {
     $username = $_POST["username"];

@@ -246,7 +246,7 @@ li#search {
 }
 #search_button {
     border: 0 none;
-    background: rgba(88, 52, 40, 0.69) url(search.png) center no-repeat;
+    background: rgba(88, 52, 40, 0.69) center no-repeat;
     width: 15%;
     float: left;
     padding: 0;
@@ -647,3 +647,9 @@ list-style-type: none;/* margin-left: 0; *//* margin-right: 0; */width: 100%;hei
     vertical-align: top;
     width: 50%;
 }
+
+span#statusInvite {}
+
+span.statusInvite {margin-left: 2rem;}
+
+.form ul#listUser {}

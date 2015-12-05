@@ -1,7 +1,6 @@
 <?php
 	
 	require_once('header.php');
-	
 	if(!isset($_GET["id"]) ){
 		echo "404";
 	}else if(!hasAccess($_GET["id"]) && !isPublic($_GET["id"])){
@@ -12,7 +11,7 @@
 
 	<div class="cardEventPage" id="event<?php echo $result['idEvent']?>">
 		<div class="imgContainerPage">
-			<img src=<?php echo $result["path"]?> />
+			<img src="<?php echo $result["path"]?>" />
 		</div>
 		<div class="eventInfo">
 			<div class="eventInfoContent">
@@ -52,7 +51,11 @@
 		
 	</div>
 
+	<?php
 
+	if(isAdmin($_GET["id"],$_SESSION["userId"])){
+ 	?>
+	 
 	<div id="openModal" class="modalDialog">
 		<div class="form">
 			<form id="editEvent" method="post">
@@ -95,6 +98,26 @@
 		</div>
 	</div>
 	
+	<?php }else if(goesEvent($_GET["id"],$_SESSION["userId"])){?>
+		<div id="listUsers" class="modalDialog">
+		<div class="form">
+			<h2>List of Invites</h2>
+			<ul id="listUser">
+				<?php
+					$users=getUsersEvent($_GET['id']);
+					foreach($users as $user){?>
+					<li id="user<?php echo $user['idUser']?>" class="listUsers">
+						<div id="name"><?php echo $user['name']?></div>
+						<?php if($user["confirm"]==0){echo"<i class=\"fa fa-question fa-2x\"></i>To Respond";}else if($user["confirm"]==1){echo"<i class=\"fa fa-check fa-2x\"></i>Going";}
+					else if($user["confirm"]==-1){echo"<i class=\"fa fa-times fa-2x\"></i>Not Going";}?></span>
+					</li>
+					
+					<?php }?>
+			</ul>
+		</div>
+	</div>
+	<?php } ?>
+	
 	<?php 
 			foreach ($posts as $post) {
 				$user=getUser2($post['idUser']);
@@ -126,7 +149,6 @@
 				</div>
 			</div>
 			<?php } ?>
-
 	<?php } 
 						
 			require_once('footer.php');

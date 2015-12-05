@@ -29,6 +29,9 @@
 				<p>
 					<i class="fa fa-map-marker fa-lg"></i> <?php echo $adminEvent['local'];?>
 				</p>
+				<p>
+					<i class="fa fa-flag"></i> <?php echo $adminEvent['type'];?>
+				</p>
 			</div>
 				</div>
 				<div class="imgContainer">
@@ -51,6 +54,8 @@
 				<div class="CardInfo">
 						<div class="name">
 					<h1><?php echo $invitedEvent['nameEvent']?></h1> <?php if($invitedEvent["public"]){echo "<i class=\"fa fa-unlock fa-2x\"></i>";}else{echo "<i class=\"fa fa-lock fa-2x\"></i>";}?>
+					<span class="statusInvite"><?php if($invitedEvent["confirm"]==0){echo"<i class=\"fa fa-question fa-2x\"></i>To Respond";}else if($invitedEvent["confirm"]==1){echo"<i class=\"fa fa-check fa-2x\"></i>Going";}
+					else if($invitedEvent["confirm"]==-1){echo"<i class=\"fa fa-times fa-2x\"></i>Not Going";}?></span>
 				</div>
 			<div>
 				<p>
@@ -61,6 +66,9 @@
 				</p>
 				<p>
 					<i class="fa fa-map-marker fa-lg"></i> <?php echo $invitedEvent['local'];?>
+				</p>
+				<p>
+					<i class="fa fa-flag"></i> <?php echo $invitedEvent['type'];?>
 				</p>
 			</div>
 				</div>
