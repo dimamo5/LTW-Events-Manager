@@ -59,6 +59,10 @@ function getEventPageCard($event){
     <p>
     <i class="fa fa-map-marker fa-lg"></i> <?php echo $event['local'];?>
     </p>
+    <p>
+    <i class="fa fa-flag"></i>
+    <?php echo $event['type'];?>
+    </p>
     </div>
     </div>
 <?php } ?>
@@ -269,7 +273,3 @@ function addPostSection($posts){ ?>
 		<?php } ?>
 	</div>
 <?php } ?>
-
-
-
-?>
