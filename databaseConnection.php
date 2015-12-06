@@ -456,10 +456,10 @@ function addComment($idPost,$idUser,$comment){
 
 function addPost($idEvent,$info){
      $pathDatabase='sqlite:'.__DIR__.'/event.db';
-    $db = new PDO('sqlite:event.db');
+    $db = new PDO($pathDatabase);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $stmt=$db->prepare("INSERT INTO Post(idEvent,idUser,info) VALUES(:idEvent,:idUser,:info)");
+     $stmt = $db->prepare("INSERT INTO Post(idEvent,idUser,info) VALUES(:idEvent,:idUser,:info)");
 
 
     $stmt->bindParam(':idEvent',$idEvent,PDO::PARAM_STR);

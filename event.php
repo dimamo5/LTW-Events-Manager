@@ -49,8 +49,8 @@
 	} ?>
 	<div id="postSection">
 		<div id="Posts">
-			<h3>Comment Section</h3>
-			<p>New Post</p>
+			<h3 id="cmt">Comment Section</h3>
+			<p id="newpost">New Post</p>
 			<i id="addPost"class="fa fa-comment fa-2x"></i>
 		</div>
 		<?php 
@@ -63,7 +63,7 @@
 		<div class="cardEvent" id="post">
 			<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
 			<h4 id="user"><?php echo $user['name'] ?></h4>
-			<p id="info"><?php echo $post['info'] ?></p>
+			<p id="info1"><?php echo $post['info'] ?></p>
 			<?php 
 				foreach ($comments as $comment) {
 					$cmtUser=getUser2($comment['idUser']);
@@ -81,7 +81,7 @@
 					<input type="hidden" name="idEvent" value=<?php echo $_GET["id"]?> >
 					<input type="hidden" name="idPost" value=<?php echo $post['idPost']?>>
 					<input type="hidden" name="idUser" value=<?php echo $post['idUser']?>>
-					<textarea id="commentText" name="comment" rows="3" cols="85"placeholder="Add a comment..." required></textarea>						
+					<textarea id="commentText" name="comment" rows="3" cols="85" maxlength="250" placeholder="Add a comment...(max 250 characters)" required></textarea>						
 					<button id="button" type="Submit" value="Send">Send</button>
 				</form>
 				

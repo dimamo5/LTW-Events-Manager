@@ -25,6 +25,8 @@ body{
     
 }
 
+
+
 div#hmenu {
    margin: auto auto;
    height: 5em;
@@ -54,13 +56,8 @@ div#hmenu {
 .cardEvent#postSection div#Posts{
     margin-bottom: 20px;
 }
-.cardEvent#postSection div#Posts h3, i,p{
-    display: inline;
-    margin-right: 25px;
 
-}
-
-div#Posts h3,p,i{
+div#Posts h3#cmt,div#Posts p#newpost,div#Posts i#addPost{
     display: inline;
 
 }
@@ -111,6 +108,15 @@ div#Posts p{
 
 }
 
+.cardEvent#post h4#user, .cardEvent#post p#info1{
+    position: relative;
+    top: -12px;
+}
+
+.cardEvent#comment h4#user{
+    position: relative;
+    top: -10px;
+}
 
 .cardEvent#post h4, .cardEvent#comment h4{
     font-size:1.4em; 
@@ -119,19 +125,26 @@ div#Posts p{
     margin-left: 2%;
 }
 
-.cardEvent#comment img, .cardEvent#comment h4, .cardEvent#comment p#info{
+.cardEvent#comment img, .cardEvent#comment h4{
     display: inline;
 }
 
-.cardEvent#post img, .cardEvent#post h4, .cardEvent#post p{
+.cardEvent#post img, .cardEvent#post h4{
     display: inline;
+}
+
+.cardEvent#post p#info1{
+    position: relative;
+    top: 4px;
+    left: 10px;
+    margin: auto 0;
 }
 
 .cardEvent#post{
    // text-align: center;
 }
 
-.cardEvent#post p#info, .cardEvent#comment p#info{
+.cardEvent#post p#info1, .cardEvent#comment p#info{
     font-size:1.1em; 
     margin-top: 10px;
     margin-bottom: 15px;
@@ -140,13 +153,15 @@ div#Posts p{
 }
 
 .cardEvent#comment p#date{
+    margin-top: 0px;
     font-size: 0.7em;
-    float: right;
+    position: relative;
+    left: 87%;
 
 }
 
 .cardEvent#comment p{
-    display: inline;
+    /*display: inline;*/
 }
 .cardEvent#comment img#profilePhoto, .cardEvent#post img#profilePhoto{
     width: 7%;
@@ -173,6 +188,22 @@ div#Posts p{
     outline: none;
     cursor: pointer;
     margin-left: 5%;
+}
+
+
+@media screen and (max-width: 1400px){
+    .cardEvent#newCmt button#button{
+        font-size: 10px;
+    }
+    @media screen and (max-width: 800){
+        .cardEvent#newCmt button#button{
+            font-size: 0px;
+        }
+    }
+}
+
+div#postSection{
+    z-index: -99;
 }
 .cardEvent#newCmt {
     width: 70%;border-left: 
