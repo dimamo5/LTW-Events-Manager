@@ -304,8 +304,8 @@ function addUser($eventId,$idUser){
      $db = new PDO($pathDatabase);
 
     $stmt=$db->prepare("INSERT INTO UserEvent(idUser,idEvent,confirm) VALUES(:idUser,:idEvent,0)");
-    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_STR);
-    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_STR);
+    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_INT);
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_INT);
     	
 	$result=$stmt->execute();  
     
@@ -318,10 +318,10 @@ function removeUser($eventId,$idUser){
      $pathDatabase='sqlite:'.__DIR__.'/event.db';
      $db = new PDO($pathDatabase);
 
-    $stmt=$db->prepare("DELETE FROM UserEvent WHERE idUser=:idUser,idEvent=:idEvent)");
-    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_STR);
-    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_STR);
-    	
+    $stmt=$db->prepare("DELETE FROM UserEvent WHERE UserEvent.idUser=:idUser AND UserEvent.idEvent=:idEvent");
+    $stmt->bindParam(':idUser',$idUser,PDO::PARAM_INT);
+    $stmt->bindParam(':idEvent',$eventId,PDO::PARAM_INT);
+         	
 	$result=$stmt->execute();  
     
     if($result>0){

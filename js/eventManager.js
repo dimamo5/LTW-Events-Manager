@@ -278,7 +278,6 @@ $(document).ready(function() {
         
         }, 
         function(data) {
-            console.log(data);
             var result = JSON.parse(data);
             switch (result["editUser"]) {
             case "success":
