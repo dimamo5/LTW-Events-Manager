@@ -28,6 +28,7 @@ body{
 
 
 div#hmenu {
+    z-index: 1;
    margin: auto auto;
    height: 5em;
    background: #ED7A43;
@@ -202,9 +203,6 @@ div#Posts p{
     }
 }
 
-div#postSection{
-    z-index: -99;
-}
 .cardEvent#newCmt {
     width: 70%;border-left: 
 }
