@@ -55,7 +55,7 @@ div#hmenu {
     box-sizing: border-box;
 }
 
-.cardEvent#postSection div#Posts{
+.postSection div#Posts{
     margin-bottom: 20px;
 }
 
@@ -81,148 +81,56 @@ div#Posts p{
     margin-right: 0px;
 }
 
-.cardEvent#postSection div#Posts p{
+.postSection div#Posts p{
     margin-right: 2px;
 }
 
- .cardEvent#newCmt{
-    border-radius: 15px;
+ .newCmt{
     background-color: #FFB266;
-    margin-bottom: 10px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    box-shadow: 5px 5px 5px 1px;
+    padding: 1em;
 }
 
-.cardEvent#comment{
-    border-top-width: 150px;
+.comment{
     background-color: #FFB266;
-    height: 15px;
-    margin-bottom: 0px;
-    margin-top: 15px;
-
-   box-shadow: 0px 0px 0px 0px;
+    padding: 1em;
+    margin-top: 1em;
+    box-shadow: 5px 5px 5px 1px;
 }
 
-.cardEvent#newCmt{
-    margin-top: 5%;
+.post{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: #ED7A43;
+    padding: 1em;
+    box-shadow: 5px 5px 5px 1px;
+}
+.comment h4#user{display: inline-block;      vertical-align: top;margin-left: 0.5em;}
+
+.post img, .post h4{
+    display: inline-block;
 }
 
-.cardEvent#post{
-    margin-top: 25px;
-
+.comment p#date{
+    float: right;
 }
 
-.cardEvent#post h4#user, .cardEvent#post p#info1{
-    position: relative;
-    top: -12px;
-}
-
-.cardEvent#comment h4#user{
-    position: relative;
-    top: -10px;
-}
-
-.cardEvent#post h4, .cardEvent#comment h4{
-    font-size:1.4em; 
-    margin-top: 10px;
-    margin-bottom: 0px;
-    margin-left: 2%;
-}
-
-.cardEvent#comment img, .cardEvent#comment h4{
-    display: inline;
-}
-
-.cardEvent#post img, .cardEvent#post h4{
-    display: inline;
-}
-
-.cardEvent#post p#info1{
-    position: relative;
-    top: 4px;
-    left: 10px;
-    margin: auto 0;
-}
-
-.cardEvent#post{
-   /* text-align: center;*/
-}
-
-.cardEvent#post p#info1, .cardEvent#comment p#info{
-    font-size:1.1em; 
-    margin-top: 10px;
-    margin-bottom: 15px;
-    margin-left: 4%;
-
-}
-
-.cardEvent#comment p#date{
-    margin-top: 0px;
-    font-size: 0.7em;
-    position: relative;
-    left: 87%;
-
-}
-
-.cardEvent#comment p{
-    /*display: inline;*/
-}
-.cardEvent#comment img#profilePhoto, .cardEvent#post img#profilePhoto{
+.comment img#profilePhoto, .post img#profilePhoto{
     width: 7%;
     height: 7%;
   
 }
 
-.fa-comment{
-    color: white;
-}
-
-.cardEvent#newCmt button#button{
-    width: 10%;
-    height: 30px;
-    background-color: #D05B3A;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #762E18;
-    color: #fff;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 14px;
-    font-family: 'Open Sans', sans-serif;
-    outline: none;
-    cursor: pointer;
-    margin-left: 5%;
-}
-
-
-@media screen and (max-width: 1400px){
-    .cardEvent#newCmt button#button{
-        font-size: 10px;
-    }
-    @media screen and (max-width: 800){
-        .cardEvent#newCmt button#button{
-            font-size: 0px;
-        }
-    }
-}
-
-.cardEvent#newCmt {
-    width: 70%;
-    /*border-left: */ 
-}
-.cardEvent#newCmt textarea#commentText{
-    width: 75%;
-    height: 75%;
-    margin-top: 1%;
-    margin-left: 3%;
+.newCmt textarea#commentText,input{
+    height: 4rem;
+    display: inline-block;
     resize: none;
-    border-color: #D05B3A;
-    border-width: 3px;
-    border-radius: 5px;
-    background-color: #FFC991;
+    padding: 0;
+    width: 90%;
 }
 
-.cardEvent#newCmt textarea#commentText,input{
-    outline: none;
-}
 .card:hover{
     background-color:rgba(178,93,56,1);
 }
@@ -319,9 +227,6 @@ div#containerNavBar{
 }
 .nav li a:hover {
     background-color: rgba(178,93,56,1);
-}
-.nav li#profile:hover{
-    /* background-color: rgba(178,93,56,1); */
 }
 
 #settings a {
@@ -507,8 +412,6 @@ i#deleteEvent{
     font-family: 'Open Sans', sans-serif;
     outline: none;
     cursor: pointer;
-    /* margin-left: 5%; */
-    /* margin-right: 4%; */
     text-align: center;
 }
 
@@ -658,7 +561,7 @@ form#inviteUserForm {
     box-shadow: 5px 5px 5px 1px;
     background: rgba(178,93,56,1);
     padding: 1em;
-    width: 25%;
+    width: 30%;
 }
 
 .options label {
@@ -754,6 +657,7 @@ list-style-type: none;/* margin-left: 0; *//* margin-right: 0; */width: 100%;hei
     width: 80%;
     margin: 0 auto;
     padding-top: 5em;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .spacer {
@@ -848,8 +752,10 @@ button#close {
     text-align: center;
 }
 
-h2 {
-    text-align: center;
+h2#user {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 1em;
 }
 
 input#eventImage {
@@ -857,8 +763,20 @@ input#eventImage {
     height: 100%;
 }
 
-button {
-    /* text-align: center; */
+.newCmt button {
+    display: inline-block;
+    height: 4rem;
+    vertical-align: top;
+    width: 9%;
+    background-color: #D05B3A;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #762E18;
+    cursor: pointer;
+}
+
+.newCmt button:hover{
+    background: #762E18;
 }
 
 input#searchUser {
@@ -866,12 +784,10 @@ input#searchUser {
     font-size: 20px;
 }
 
-li#user1 {}
-
 div#sub {
     display: table-cell;
     width: 50%;
     vertical-align: middle;
 }
 
-div#event4 {}
+div#postHeader {font-family: 'Open Sans', sans-serif;font-size: 2rem;color: white;text-align: center;}

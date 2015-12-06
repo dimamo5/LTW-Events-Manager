@@ -21,9 +21,11 @@
 					<label id="deleteEvent"><i class="fa fa-trash fa-2x"></i> Delete Event</label>
 					<label id="addPhoto"><i class="fa fa-camera fa-2x"></i> Add Photo</label>
 					<label id="seePhotos"><i class="fa fa-picture-o fa-2x"></i> See Photos</label>
+					<label id="newpost"><i class="fa fa-comment fa-2x"></i> New post<label>
 				<?php }else if(goesEvent($_GET["id"],$_SESSION["userId"])){?>
 					<label id="Users"><i class="fa fa-users fa-2x"></i> See User</label>
 					<label id="seePhotos"><i class="fa fa-picture-o fa-2x"></i> See Photos</label>
+					<label id="newpost"><i class="fa fa-comment fa-2x"></i><label>
 				<?php }else if(hasAccess($_GET["id"])){?>
 					<label id="accept"><i class="fa fa-check fa-2x"></i> Accept</label>
 					<label id="decline"><i class="fa fa-times fa-2x"></i> Decline</label>
@@ -48,10 +50,8 @@
 	} ?>
 	
 	<div id="postSection">
-		<div id="Posts">
-			<h3 id="cmt">Comment Section</h3>
-			<p id="newpost">New Post</p>
-			<i id="addPost"class="fa fa-comment fa-2x"></i>
+		<div id="postHeader">
+			<h3 id="cmt">Comment Section</h3>		
 		</div>
 		<?php 
 		foreach ($posts as $post) {
@@ -60,23 +60,28 @@
 			$comments=getAllComments($post['idPost']);
 		?>
 
-		<div class="cardEvent" id="post">
-			<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
-			<h4 id="user"><?php echo $user['name'] ?></h4>
+		<div class="post">
+			<div class="postHeader">
+				<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
+				<h2 id="user"><?php echo $user['name'] ?></h4>
+			</div>
 			<p id="info1"><?php echo $post['info'] ?></p>
 			<?php 
 				foreach ($comments as $comment) {
-					$cmtUser=getUser2($comment['idUser']);
+					$cmtUser=getUser($comment['idUser']);
 					$userPhoto=getPhoto($cmtUser['idPhoto']);
 			?>
-				<div class="cardEvent" id="comment">
+				<div class="comment">
+					<div class="commentHeader">
 					<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
 					<h4 id="user"><?php echo $cmtUser['name'] ?></h4>
-					<p id="info"><?php echo $comment['commentText'] ?></p>
 					<p id="date"><?php echo $comment['creationDate']?></p>
+					</div>
+					<p id="info"><?php echo $comment['commentText'] ?></p>
+					
 				</div>
 			<?php } ?>
-			<div class="cardEvent" id="newCmt">
+			<div class="newCmt">
 				<form action="addComment.php?id=askas" method="get">
 					<input type="hidden" name="idEvent" value=<?php echo $_GET["id"]?> >
 					<input type="hidden" name="idPost" value=<?php echo $post['idPost']?>>
@@ -92,7 +97,7 @@
 
 	<div id="NewPost" class="modalDialog">
 	    <div class="form">
-		    <form id="editEvent" method="post">
+		    <form id="newPostForm" method="post">
 		    <h2>New Post</h2>
 			    <input id="newPost" name="postInfo" type="text" placeholder="Add a Post..." required >
 			    <div id="selectOption">

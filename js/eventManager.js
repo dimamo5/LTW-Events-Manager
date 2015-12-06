@@ -35,7 +35,7 @@ $(document).ready(function() {
         });
     });
 
-    $("#addPost").click(function(e){
+    $("#newpost").click(function(e){
         $("#NewPost").show();
     });
 
@@ -87,7 +87,7 @@ $(document).ready(function() {
    	 	}
     });	
 
-    $("form #post").click(function(e){
+    $("#newPostForm").submit(function(e){
         e.preventDefault();
         var postInfo=$("#newPost").val();
 

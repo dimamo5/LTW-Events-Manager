@@ -145,10 +145,9 @@ function addPhotoModal($event){
     <h2>Add Photo</h2>
     <input type="file" name="eventPhoto" id="eventPhoto" accept="image" multiple>
     <button type="submit">Submit</button>
-    
-    </div>
     </form>
     </div>
+    
     </div>
 <?php } ?>
 
