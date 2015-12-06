@@ -199,7 +199,7 @@ div#containerNavBar{
     background-color: rgba(178,93,56,1);
 }
 .nav li#profile:hover{
-    background-color: rgba(178,93,56,1);
+    /* background-color: rgba(178,93,56,1); */
 }
 
 #settings a {
@@ -581,19 +581,19 @@ div#User {
 
 .UserImage {
     margin: 0 auto;
-    width: 15%;
+    width: 50%;
     display: table-cell;
     vertical-align: middle;
 }
 
 
 .UserInfo {
-    margin: 0 auto;
-    width: 30%;
+    /* margin-left: 40%; */
+    width: 50%;
     display: table-cell;
-    vertical-align: top;
-    top: 50%;
-    left: 50%;
+    vertical-align: middle;
+    /* top: 50%; */
+    /* left: 50%; */
 }
 
 ul.InfoList {
@@ -645,6 +645,7 @@ list-style-type: none;/* margin-left: 0; *//* margin-right: 0; */width: 100%;hei
     width: 50%;
 }
 
+
 span.statusInvite {margin-left: 2rem;}
 
 .footer {
@@ -669,7 +670,6 @@ table.gridtable {
     width: 100%;
 }
 
-button {}
 
 td {
     width: 33%;
@@ -697,4 +697,17 @@ button#close {
     width: 100%;
     color: white;
     text-align: center;
+}
+.profileButton:hover {
+    background-color: rgba(178,93,56,1);
+}
+
+.User {
+    /* color: blue; */
+    background-color: #F5943E;
+    box-shadow: 5px 5px 5px 1px;
+    padding: 1em;
+    display: table;
+    margin-top: 5%;
+    width: 100%;
 }
