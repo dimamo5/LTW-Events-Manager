@@ -183,3 +183,17 @@ function viewPhotos($event){
     </div>
     </div>
 <?php } ?>
+
+<?php function displayError(){
+    ?>
+    <div class="error">
+       <i class="fa fa-exclamation-triangle fa-2x"></i> <h2>This page can not be displayed!</h2>
+    </div>
+<?php } ?> 
+
+<?php function displaySearchError(){
+    ?>
+    <div class="error">
+       <i class="fa fa-exclamation-triangle fa-2x"></i> <h2>No results found!</h2>
+    </div>
+<?php } ?> 

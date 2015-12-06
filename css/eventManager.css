@@ -685,6 +685,19 @@ button#close {
     margin: 0 auto;
 }
 
+.error h2 {
+    display: inline;
+    margin-left: 3rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 300%;
+}
+
+.error {
+    margin-top: 20%;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
 .profileButton:hover {
     background-color: rgba(178,93,56,1);
 }
