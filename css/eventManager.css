@@ -44,14 +44,15 @@ div#hmenu {
 
 .card,.cardEvent{
     background-color: #F5943E;
-    width: 80%;
+    width: 100%;
+    height: 15rem;
     margin: 0 auto;
     margin-bottom: 2em;
     box-shadow: 5px 5px 5px 1px;
     padding: 0.5em;
     font-family: 'Open Sans', sans-serif;
-    /* overflow: hidden; */
-    /* box-sizing: border-box; */
+    cursor: pointer;
+    box-sizing: border-box;
 }
 
 .cardEvent#postSection div#Posts{
@@ -60,9 +61,7 @@ div#hmenu {
 
 div#Posts h3#cmt,div#Posts p#newpost,div#Posts i#addPost{
     display: inline;
-
-    height: 15rem;
-    /* cursor: pointer; */
+   
 }
 
 div#Posts{
@@ -520,6 +519,7 @@ i#deleteEvent{
 div#selectOption {
     box-sizing: border-box;
     margin-bottom: 3%;
+    text-align: center;
 }
 
 
@@ -766,6 +766,9 @@ list-style-type: none;/* margin-left: 0; *//* margin-right: 0; */width: 100%;hei
     display: inline-block;
     vertical-align: top;
     width: 50%;
+    margin: 0 auto;
+    /* width: 100%; */
+    height: 100%;
 }
 
 
@@ -870,3 +873,5 @@ div#sub {
     width: 50%;
     vertical-align: middle;
 }
+
+div#event4 {}

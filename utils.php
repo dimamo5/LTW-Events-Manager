@@ -74,6 +74,7 @@ function editEventModal($event){
     <input id="description" name="description" type="text" value="<?php echo $event["description"]?>" required="">
     <input id="creationDate" name="creationDate" type="date" value="<?php echo $event["creationDate"]?>" required="">
     <input id="endDate" name="endDate" type="date" value="<?php echo $event["endDate"]?>" required="">
+    <input id="hour" name="hour" type="hour" value="<?php echo $event["hour"]?>" required="">
     <input id="local" name="local" type="text" value="<?php echo $event["local"]?>" required="">
     <input id="type" name="type" type="text" value="<?php echo $event["type"]?>" required="">
     <div id="selectOption">
