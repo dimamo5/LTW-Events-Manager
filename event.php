@@ -4,9 +4,9 @@
 	include_once('utils.php');
 	
 	if(!isset($_GET["id"]) ){
-		echo "404";
+		displayError();
 	}else if(!hasAccess($_GET["id"]) && !isPublic($_GET["id"])){
-			echo "404";
+			displayError();
 	}else{
 		$result=getEvent($_GET["id"]);
 		$posts=getAllPosts($_GET["id"]);
@@ -32,8 +32,7 @@
 				<?php } ?>
 				
 			</div>
-		</div>
-		
+		</div>		
 	</div>
 
 	<?php
@@ -47,6 +46,7 @@
 		listUsersModal($_GET["id"]);
 		viewPhotos($_GET["id"]);
 	} ?>
+	
 	<div id="postSection">
 		<div id="Posts">
 			<h3 id="cmt">Comment Section</h3>
@@ -104,7 +104,9 @@
 	    </div>
     </div>
 
+
 	<?php } 
+	 } 
 						
-			include_once('footer.php');
-			?>
+	include_once('footer.php');
+?>
