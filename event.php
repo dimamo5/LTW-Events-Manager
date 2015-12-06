@@ -4,9 +4,9 @@
 	include_once('utils.php');
 	
 	if(!isset($_GET["id"]) ){
-		echo "404";
+		displayError();
 	}else if(!hasAccess($_GET["id"]) && !isPublic($_GET["id"])){
-			echo "404";
+			displayError();
 	}else{
 		$result=getEvent($_GET["id"]);
 		$posts=getAllPosts($_GET["id"]);
