@@ -161,6 +161,11 @@ function viewPhotos($event){
     
     <div id="viewPhotos" class="modalDialog">
     <div class="form">
+    <?php if(count($photos)==0){?>
+    <div class="errorNoPhoto">
+       <i class="fa fa-exclamation-triangle fa-2x"></i> <h2>No photos</h2>
+    </div>
+   <?php } ?>
    <table class="gridtable">
   <?php for($i=0;$i<$coluns;$i++){
       echo "<tr>";
