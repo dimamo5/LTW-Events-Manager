@@ -1,4 +1,4 @@
-<?php
+	<?php
 	
 	include_once('header.php');
 	include_once('utils.php');
@@ -47,38 +47,63 @@
 		listUsersModal($_GET["id"]);
 		viewPhotos($_GET["id"]);
 	} ?>
-	
-	<?php 
-			foreach ($posts as $post) {
-				$user=getUser2($post['idUser']);
-				$comments=getAllComments($post['idPost']);
-			?>
+	<div id="postSection">
+		<div id="Posts">
+			<h3>Comment Section</h3>
+			<p>New Post</p>
+			<i id="addPost"class="fa fa-comment fa-2x"></i>
+		</div>
+		<?php 
+		foreach ($posts as $post) {
+			$user=getUser2($post['idUser']);
+			$userPhoto=getPhoto($user['idPhoto']);
+			$comments=getAllComments($post['idPost']);
+		?>
 
-			<div class="cardEvent" id="post">
-				<h4 id="user"><?php echo $user['name'] ?></h4>
-				<p id="info"><?php echo $post['info'] ?></p>
-				<?php 
-					foreach ($comments as $comment) {
-						$cmtUser=getUser2($comment['idUser']);
-				?>
-					<div class="cardEvent" id="comment">
-						<h4 id="user"><?php echo $cmtUser['name'] ?></h4>
-						<p id="info"><?php echo $comment['commentText'] ?></p>
-						<p id="date"><?php echo $comment['creationDate']?></p>
-					</div>
-				<?php } ?>
-				<div class="cardEvent" id="newCmt">
-					<form action="addComment.php?id=askas" method="get">
-						<input type="hidden" name="idEvent" value=<?php echo $_GET["id"]?> >
-						<input type="hidden" name="idPost" value=<?php echo $post['idPost']?>>
-						<input type="hidden" name="idUser" value=<?php echo $post['idUser']?>>
-						<textarea id="commentText" name="comment" rows="3" cols="85"></textarea>						
-						<button id="button" type="Submit" value="Send">Send</button>
-					</form>
-					
+		<div class="cardEvent" id="post">
+			<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
+			<h4 id="user"><?php echo $user['name'] ?></h4>
+			<p id="info"><?php echo $post['info'] ?></p>
+			<?php 
+				foreach ($comments as $comment) {
+					$cmtUser=getUser2($comment['idUser']);
+					$userPhoto=getPhoto($cmtUser['idPhoto']);
+			?>
+				<div class="cardEvent" id="comment">
+					<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
+					<h4 id="user"><?php echo $cmtUser['name'] ?></h4>
+					<p id="info"><?php echo $comment['commentText'] ?></p>
+					<p id="date"><?php echo $comment['creationDate']?></p>
 				</div>
-			</div>
 			<?php } ?>
+			<div class="cardEvent" id="newCmt">
+				<form action="addComment.php?id=askas" method="get">
+					<input type="hidden" name="idEvent" value=<?php echo $_GET["id"]?> >
+					<input type="hidden" name="idPost" value=<?php echo $post['idPost']?>>
+					<input type="hidden" name="idUser" value=<?php echo $post['idUser']?>>
+					<textarea id="commentText" name="comment" rows="3" cols="85"placeholder="Add a comment..." required></textarea>						
+					<button id="button" type="Submit" value="Send">Send</button>
+				</form>
+				
+			</div>
+		</div>
+		<?php } ?>
+	</div>
+
+	<div id="NewPost" class="modalDialog">
+	    <div class="form">
+		    <form id="editEvent" method="post">
+		    <h2>New Post</h2>
+			    <input id="newPost" name="postInfo" type="text" placeholder="Add a Post..." required >
+			    <div id="selectOption">
+				    <button id="post" type="submit">Save</button>
+				    <button id="back">Cancel</button>
+			    
+			    </div>
+		    </form>
+	    </div>
+    </div>
+
 	<?php } 
 						
 			include_once('footer.php');

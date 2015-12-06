@@ -41,20 +41,76 @@ div#hmenu {
 
 .card,.cardEvent{
     background-color: #F5943E;
+    width: 80%;
     margin: 0 auto;
     margin-bottom: 2em;
     box-shadow: 5px 5px 5px 1px;
-    padding: 1em;
+    padding: 0.5em;
     font-family: 'Open Sans', sans-serif;
-    height: 15rem;
-    cursor: pointer;
+    /* overflow: hidden; */
+    /* box-sizing: border-box; */
 }
 
-.cardEvent#comment, .cardEvent#newCmt{
+.cardEvent#postSection div#Posts{
+    margin-bottom: 20px;
+}
+.cardEvent#postSection div#Posts h3, i,p{
+    display: inline;
+    margin-right: 25px;
+
+}
+
+div#Posts h3,p,i{
+    display: inline;
+
+}
+
+div#Posts{
+    margin-top: 5%;
+    text-align: center;
+}
+
+div#Posts h3, div#Posts p{
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    margin-right: 3%;
+    font-size: 2em;
+
+}
+
+div#Posts p{
+    margin-right: 0px;
+}
+
+.cardEvent#postSection div#Posts p{
+    margin-right: 2px;
+}
+
+ .cardEvent#newCmt{
     border-radius: 15px;
     background-color: #FFB266;
     margin-bottom: 10px;
 }
+
+.cardEvent#comment{
+    border-top-width: 150px;
+    background-color: #FFB266;.
+    height: 15px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+
+   box-shadow: 0px 0px 0px 0px;
+}
+
+.cardEvent#newCmt{
+    margin-top: 5%;
+}
+
+.cardEvent#post{
+    margin-top: 25px;
+
+}
+
 
 .cardEvent#post h4, .cardEvent#comment h4{
     font-size:1.4em; 
@@ -63,19 +119,43 @@ div#hmenu {
     margin-left: 2%;
 }
 
+.cardEvent#comment img, .cardEvent#comment h4, .cardEvent#comment p#info{
+    display: inline;
+}
+
+.cardEvent#post img, .cardEvent#post h4, .cardEvent#post p{
+    display: inline;
+}
+
+.cardEvent#post{
+   // text-align: center;
+}
+
 .cardEvent#post p#info, .cardEvent#comment p#info{
     font-size:1.1em; 
     margin-top: 10px;
     margin-bottom: 15px;
     margin-left: 4%;
+
 }
 
 .cardEvent#comment p#date{
-    position: relative;
-    /* left: 90%; */
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 0.8em;
+    font-size: 0.7em;
+    float: right;
+
+}
+
+.cardEvent#comment p{
+    display: inline;
+}
+.cardEvent#comment img#profilePhoto, .cardEvent#post img#profilePhoto{
+    width: 7%;
+    height: 7%;
+  
+}
+
+.fa-comment{
+    color: white;
 }
 
 .cardEvent#newCmt button#button{
@@ -95,12 +175,23 @@ div#hmenu {
     margin-left: 5%;
 }
 .cardEvent#newCmt {
-    width: 70%;
+    width: 70%;border-left: 
 }
 .cardEvent#newCmt textarea#commentText{
-    margin-left: 5%;
+    width: 75%;
+    height: 75%;
+    margin-top: 1%;
+    margin-left: 3%;
+    resize: none;
+    border-color: #D05B3A;
+    border-width: 3px;
+    border-radius: 5px;
+    background-color: #FFC991;
 }
 
+.cardEvent#newCmt textarea#commentText,input{
+    outline: none;
+}
 .card:hover{
     background-color:rgba(178,93,56,1);
 }

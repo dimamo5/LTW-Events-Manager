@@ -454,6 +454,27 @@ function addComment($idPost,$idUser,$comment){
     return "success";
 }
 
+function addPost($idEvent,$info){
+     $pathDatabase='sqlite:'.__DIR__.'/event.db';
+    $db = new PDO('sqlite:event.db');
+    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt=$db->prepare("INSERT INTO Post(idEvent,idUser,info) VALUES(:idEvent,:idUser,:info)");
+
+
+    $stmt->bindParam(':idEvent',$idEvent,PDO::PARAM_STR);
+    $stmt->bindParam(':idUser',$_SESSION['userId'],PDO::PARAM_STR);
+    $stmt->bindParam(':info',$info,PDO::PARAM_STR);
+
+   $result=$stmt->execute();  
+
+   if($result>0){
+        return true;
+    }else{
+         return false;
+    }
+}
+
 function acceptInvite($eventId,$idUser){
     $pathDatabase='sqlite:'.__DIR__.'/event.db';
     $db = new PDO($pathDatabase);
@@ -522,6 +543,18 @@ function getPhotoPath($eventId){
     $stmt->execute();
     $result=$stmt->fetchAll();
     
+    return $result;
+}
+
+function getPhoto($idPhoto){
+    $db = new PDO('sqlite:event.db');
+     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); 
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $db->prepare("SELECT * FROM Photo WHERE idPhoto=:id");
+    $stmt->bindParam(':id',$idPhoto,PDO::PARAM_STR);
+
+    $stmt->execute();  
+    $result = $stmt->fetch();
     return $result;
 }
 
