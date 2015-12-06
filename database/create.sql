@@ -80,15 +80,15 @@ INSERT INTO Photo VALUES(1,"static/user/userDefault.png","2015-11-01");
 INSERT INTO User VALUES (1,"diogomoura","ce47fa5f3a0a54a65fead7c798669e1ae1b73809d4a1f525eb948afe697b4c00a5c2361afb54cad0e4ffd9c51549eb6d73e4a3e4d594ec80a639365ad8b3e78a","diogomoura13@gmail.com","Diogo","1995-08-05",1);
 INSERT INTO User VALUES(2,"sergio","ce47fa5f3a0a54a65fead7c798669e1ae1b73809d4a1f525eb948afe697b4c00a5c2361afb54cad0e4ffd9c51549eb6d73e4a3e4d594ec80a639365ad8b3e78a","sergiomieic@gmail.com","Sergio","1995-05-05",1);
 
-INSERT INTO Event VALUES(1,"PartyTime","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
-INSERT INTO Event VALUES(2,"PartyTime2","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
-INSERT INTO Event VALUES(3,"PartyTime3","25-11-2015","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
-INSERT INTO Event VALUES(4,"PartyTime4","25-11-2015","25-12-2015","Republica Nabense",0,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,2);
+INSERT INTO Event VALUES(1,"PartyTime","2015-12-25","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
+INSERT INTO Event VALUES(2,"PartyTime2","2015-12-25","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
+INSERT INTO Event VALUES(3,"PartyTime3","2015-12-25","25-12-2015","Republica Nabense",1,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,1);
+INSERT INTO Event VALUES(4,"PartyTime4","2015-12-25","25-12-2015","Republica Nabense",0,"FESTA","Vai ser grande cena bois... Aparecam","10:00",1,2);
 
 INSERT INTO UserEvent VALUES(4,1,0);
 
 INSERT INTO Post(idEvent,idUser,info) VALUES(1,1,"CENAS E TAL E ASSIM ASSIM");
 INSERT INTO Post(idEvent,idUser,info)  VALUES(1,2,"CENAS E TAL E ASSIM ASSIM");
 
-INSERT INTO Comment(idPost,idUser,commentText,creationDate) VALUES(1,2,"COISITAS","25-11-2015");
-INSERT INTO Comment(idPost,idUser,commentText,creationDate) VALUES(1,1,"COISITAS","29-11-2015");
+INSERT INTO Comment(idPost,idUser,commentText,creationDate) VALUES(1,2,"COISITAS","2015-12-25");
+INSERT INTO Comment(idPost,idUser,commentText,creationDate) VALUES(1,1,"COISITAS","2015-11-29");

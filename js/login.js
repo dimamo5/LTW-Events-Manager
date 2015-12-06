@@ -86,7 +86,7 @@ $(document).ready(function () {
 							break;
 							default:
 						
-						window.location.href = "/Project";
+						location.reload();
 						break;
 						}
 					

@@ -202,3 +202,74 @@ function viewPhotos($event){
        <i class="fa fa-exclamation-triangle fa-2x"></i> <h2>No results found!</h2>
     </div>
 <?php } ?> 
+
+<?php
+function addNewPostModal(){
+    ?>
+    	<div id="NewPost" class="modalDialog">
+	    <div class="form">
+		    <form id="newPostForm" method="post" novalidate>
+		    <h2>New Post</h2>
+			    <input id="newPost" name="postInfo" type="text" placeholder="Add a Post..." required >
+			    <div id="selectOption">
+				    <button id="post" type="submit">Save</button>
+				    <button id="back">Cancel</button>
+			    
+			    </div>
+		    </form>
+	    </div>
+    </div>
+<?php } ?>
+
+<?php
+function addPostSection($posts){ ?>
+    <div id="postSection">
+		<div id="postHeader">
+			<h3 id="cmt">Comment Section</h3>		
+		</div>
+		<?php 
+		foreach ($posts as $post) {
+			$user=getUser($post['idUser']);
+			$userPhoto=getPhoto($user['idPhoto']);
+			$comments=getAllComments($post['idPost']);
+		?>
+
+		<div class="post">
+			<div class="postHeader">
+				<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
+				<h2 id="user"><?php echo $user['name'] ?></h4>
+			</div>
+			<p id="info1"><?php echo $post['info'] ?></p>
+			<?php 
+				foreach ($comments as $comment) {
+					$cmtUser=getUser($comment['idUser']);
+					$userPhoto=getPhoto($cmtUser['idPhoto']);
+			?>
+				<div class="comment">
+					<div class="commentHeader">
+					<img id="profilePhoto" src="<?php echo $userPhoto['path'] ?>">
+					<h4 id="user"><?php echo $cmtUser['name'] ?></h4>
+					<p id="date"><?php echo $comment['creationDate']?></p>
+					</div>
+					<p id="info"><?php echo $comment['commentText'] ?></p>
+					
+				</div>
+			<?php } ?>
+			<div class="newCmt">
+				<form action="addComment.php?id=askas" method="get">
+					<input type="hidden" name="idEvent" value=<?php echo $_GET["id"]?> >
+					<input type="hidden" name="idPost" value=<?php echo $post['idPost']?>>
+					<input type="hidden" name="idUser" value=<?php echo $post['idUser']?>>
+					<textarea id="commentText" name="comment" rows="3" cols="85" maxlength="250" placeholder="Add a comment...(max 250 characters)" required></textarea>						
+					<button id="button" type="Submit" value="Send">Send</button>
+				</form>
+				
+			</div>
+		</div>
+		<?php } ?>
+	</div>
+<?php } ?>
+
+
+
+?>
