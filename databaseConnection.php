@@ -178,30 +178,65 @@ function isAdmin($idEvent,$idAdmin){
 function deleteEvent($id){
     $pathDatabase='sqlite:'.__DIR__.'/event.db';
     $db = new PDO($pathDatabase);
-
+    
+  
+    //apaga evento
     $stmt=$db->prepare("DELETE FROM Event WHERE idEvent=:idEvent;");
     $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
     
     $result=$stmt->execute();  
-    if($result>0){
-        $stmt2=$db->prepare("DELETE FROM UserEvent WHERE idEvent=:idEvent");
-        $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
-        $result2=$stmt2->execute();
-        if($result2>0){
-            $stmt2=$db->prepare("DELETE FROM UserEvent WHERE idEvent=:idEvent");
-            $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
-            $result2=$stmt2->execute();
-        }
-        
-        $stmt2=$db->prepare("DELETE FROM Photo WHERE idPhoto=:idEvent");
-        $stmt2->bindParam(':idEvent',$id,PDO::PARAM_INT);
-        $result2=$stmt2->execute();
-        
-        
-        
-        
-        
+    if($result==0){
+        return false;
     }
+    
+    //apaga userEvents
+    $stmt=$db->prepare("DELETE FROM UserEvent WHERE UserEvent.idEvent=:idEvent;");
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+    
+    $result=$stmt->execute();  
+    if($result==0){
+        return false;
+    }
+        
+    //delete photos
+    $stmt=$db->prepare("DELETE FROM Photo WHERE Photo.idPhoto IN 
+                       (SELECT EventPhoto.idPhoto FROM EventPhoto WHERE EventPhoto.idEvent=:idEvent);");
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+  
+    $result=$stmt->execute();
+    if($result==0){
+        return false;
+    }
+        
+    //delete eventPhotos
+    $stmt=$db->prepare("DELETE FROM EventPhoto WHERE EventPhoto.idEvent=:idEvent;");
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+  
+    $result=$stmt->execute();
+    if($result==0){
+        return false;
+    }
+    
+    //apaga comments      
+    $stmt=$db->prepare("DELETE FROM Comment WHERE Comment.idPost IN 
+                       (SELECT Post.idPost FROM Post Where Post.idEvent=:idEvent);");
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+    
+    $result=$stmt->execute();   
+    if($result==0){
+        return false;
+    }
+    
+    //apaga posts        
+    $stmt=$db->prepare("DELETE FROM Post WHERE Post.idEvent=:idEvent;");
+    $stmt->bindParam(':idEvent',$id,PDO::PARAM_INT);
+    
+    $result=$stmt->execute();
+    if($result==0){
+        return false;
+    }
+    
+    return true;      
 }
 
 function editEvent($id,$description,$nameEvent,$creationDate,$endDate,$local,$type){
