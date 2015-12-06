@@ -34,6 +34,14 @@ $(document).ready(function() {
             });
         });
     });
+
+    $("#addPost").click(function(e){
+        $("#NewPost").show();
+    });
+
+    $("form #back").click(function(e){
+        $("#NewPost").hide();
+    });
     
     $("#editEvent").click(function(e) {
         $("#openModal").show();
@@ -78,6 +86,36 @@ $(document).ready(function() {
         $(".modalDialog").hide();
    	 	}
     });	
+
+    $("form #post").click(function(e){
+        e.preventDefault();
+        var postInfo=$("#newPost").val();
+
+        $.post("process/addPost.php",
+        {
+            'idEvent': parseInt(getUrlParameter("id")),
+            'info':postInfo
+        },
+        function(data) {
+            console.log(data);
+            var result = JSON.parse(data);
+            console.log(result);
+            switch (result["edit"]) {
+            case "success":
+                swal("Success");
+                $("#NewPost").hide();
+                location.reload();
+                break;
+            case "failed":
+                swal("Error adding Post");
+                break;
+            }
+        }
+        )
+        .fail(function(error) {
+            console.log("erro!!!");
+        });
+    });
     
     $('#save').click(function(e) {
         e.preventDefault();
