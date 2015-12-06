@@ -47,6 +47,7 @@
 		viewPhotos($_GET["id"]);
 	} ?>
 	
+	
 	<?php 
 	foreach ($posts as $post) {
 		$user=getUser2($post['idUser']);

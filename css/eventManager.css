@@ -357,12 +357,11 @@ i#deleteEvent{
 
 .form input {
     width: 100%;
-    height: 42px;
+    height: 100%;
     box-sizing: border-box;
     /* border-radius: 5px; */
     border: 1px solid #ccc;
     margin-bottom: 5%;
-    font-size: 15px;
     font-family: 'Open Sans', sans-serif;
     /* padding: 0 20px 0 50px; */
     text-align: start;
@@ -374,7 +373,7 @@ i#deleteEvent{
 
 .form button {
     width: 40%;
-    height: 40px;
+    height: 100%;
     background-color: #D05B3A;
     box-sizing: border-box;
     border-radius: 5px;
@@ -386,8 +385,9 @@ i#deleteEvent{
     font-family: 'Open Sans', sans-serif;
     outline: none;
     cursor: pointer;
-    margin-left: 5%;
-    margin-right: 4%;
+    /* margin-left: 5%; */
+    /* margin-right: 4%; */
+    text-align: center;
 }
 
 .form button:hover{
@@ -419,10 +419,11 @@ div#goes {
 
 div#name {
     display: table-cell;
-    width: 80%;
+    width: 50%;
     vertical-align: middle;
     overflow: hidden;
     margin: 0 auto;
+    display: table-cell;
 }
 
 div#add {
@@ -435,8 +436,10 @@ ul#listUser {
     width: 100%;
     margin: 0 auto;
     padding: 0;
-    height: 25em;
-    overflow: auto;
+    /* height: 25em; */
+    /* overflow: auto; */
+    /* height: 100%; */
+    vertical-align: middle;
 }
 
 .form {
@@ -489,6 +492,7 @@ label#privateLabel {
 div#inviteUserModal {
     height: 30em;
     padding: 2em;
+    /* font-size: 30px; */
 }
 
 form#inviteUserForm {
@@ -725,4 +729,21 @@ h2 {
 input#eventImage {
     width: 100%;
     height: 100%;
+}
+
+button {
+    /* text-align: center; */
+}
+
+input#searchUser {
+    height: 40px;
+    font-size: 20px;
+}
+
+li#user1 {}
+
+div#sub {
+    display: table-cell;
+    width: 50%;
+    vertical-align: middle;
 }
